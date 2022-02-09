@@ -1,10 +1,8 @@
 package sb.monsterBrewer.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Monster {
@@ -16,16 +14,60 @@ public class Monster {
     private String ac;
     private String hp;
     private String speed;
-    private ArrayList<Action> actions;
-    private ArrayList<LegendaryAction> legendaryActions;
-    private ArrayList<Trait> traits;
     private String senses;
-    private Stats stats;
-    private DamageTypes damageTypes;
-    private ConditionImmunities conditionImmunities;
+
 
     @Column(name = "name")
     private String name;
+
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "stats_id")
+    private Stats stats;
+
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "damage_types_id")
+    private DamageTypes damageTypes;
+
+    @OneToMany(mappedBy = "monster", orphanRemoval = true)
+    private List<Action> actions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "monster", orphanRemoval = true)
+    private List<LegendaryAction> legendaryActions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "monster", orphanRemoval = true)
+    private List<Trait> traits = new ArrayList<>();
+
+    public List<Trait> getTraits() {
+        return traits;
+    }
+
+    public void setTraits(List<Trait> traits) {
+        this.traits = traits;
+    }
+
+    public List<LegendaryAction> getLegendaryActions() {
+        return legendaryActions;
+    }
+
+    public void setLegendaryActions(List<LegendaryAction> legendaryActions) {
+        this.legendaryActions = legendaryActions;
+    }
+
+    public DamageTypes getDamageTypes() {
+        return damageTypes;
+    }
+
+    public void setDamageTypes(DamageTypes damageTypes) {
+        this.damageTypes = damageTypes;
+    }
+
+    public Stats getStats() {
+        return stats;
+    }
+
+    public void setStats(Stats stats) {
+        this.stats = stats;
+    }
 
     public String getName() {
         return name;
@@ -83,29 +125,6 @@ public class Monster {
         this.speed = speed;
     }
 
-    public ArrayList<Action> getActions() {
-        return actions;
-    }
-
-    public void setActions(ArrayList<Action> actions) {
-        this.actions = actions;
-    }
-
-    public ArrayList<LegendaryAction> getLegendaryActions() {
-        return legendaryActions;
-    }
-
-    public void setLegendaryActions(ArrayList<LegendaryAction> legendaryActions) {
-        this.legendaryActions = legendaryActions;
-    }
-
-    public ArrayList<Trait> getTraits() {
-        return traits;
-    }
-
-    public void setTraits(ArrayList<Trait> traits) {
-        this.traits = traits;
-    }
 
     public String getSenses() {
         return senses;
@@ -115,29 +134,9 @@ public class Monster {
         this.senses = senses;
     }
 
-    public Stats getStats() {
-        return stats;
-    }
 
-    public void setStats(Stats stats) {
-        this.stats = stats;
-    }
 
-    public DamageTypes getDamageTypes() {
-        return damageTypes;
-    }
 
-    public void setDamageTypes(DamageTypes damageTypes) {
-        this.damageTypes = damageTypes;
-    }
-
-    public ConditionImmunities getConditionImmunities() {
-        return conditionImmunities;
-    }
-
-    public void setConditionImmunities(ConditionImmunities conditionImmunities) {
-        this.conditionImmunities = conditionImmunities;
-    }
 
     public Long getId() {
         return id;
@@ -145,5 +144,13 @@ public class Monster {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Action> getActions() {
+        return actions;
+    }
+
+    public void setActions(List<Action> actions) {
+        this.actions = actions;
     }
 }

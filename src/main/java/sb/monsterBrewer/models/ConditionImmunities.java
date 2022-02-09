@@ -1,6 +1,15 @@
 package sb.monsterBrewer.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class ConditionImmunities {
+    @Id
+    @Column(name = "id", nullable = false)
+    private Long id;
+
     private boolean blinded;
     private boolean charmed;
     private boolean deafened;
@@ -16,6 +25,14 @@ public class ConditionImmunities {
     private boolean stunned;
     private boolean unconscious;
     private boolean exhaustion;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public boolean isBlinded() {
         return blinded;
