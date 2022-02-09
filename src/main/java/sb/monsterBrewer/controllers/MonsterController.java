@@ -46,12 +46,23 @@ class MonsterController {
     }
 
     @PutMapping("/monsters/{id}")
-    Monster replaceMonster(@RequestBody Monster newMonster, @PathVariable Long id) {
+    Monster replaceMonster(@RequestBody Monster newMonster,
+                           @PathVariable Long id) {
 
         return repository.findById(id)
                 .map(monster -> {
                     monster.setName(newMonster.getName());
-                    monster.setRole(newMonster.getRole());
+                    monster.setAlignment(newMonster.getAlignment());
+                    monster.setRace(newMonster.getRace());
+                    monster.setHp(newMonster.getHp());
+                    monster.setAc(newMonster.getAc());
+                    monster.setSenses(newMonster.getSenses());
+                    monster.setSize(newMonster.getSize());
+                    monster.setTraits(newMonster.getTraits());
+                    monster.setActions(newMonster.getActions());
+                    monster.setLegendaryActions(newMonster.getLegendaryActions());
+                    monster.setConditionImmunities(newMonster.getConditionImmunities());
+                    monster.setDamageTypes(newMonster.getDamageTypes());
                     return repository.save(monster);
                 })
                 .orElseGet(() -> {
