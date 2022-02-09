@@ -63,6 +63,7 @@ class MonsterController {
                     monster.setLegendaryActions(newMonster.getLegendaryActions());
                     monster.setConditionImmunities(newMonster.getConditionImmunities());
                     monster.setDamageTypes(newMonster.getDamageTypes());
+                    monster.setSpeed(newMonster.getSpeed());
                     return repository.save(monster);
                 })
                 .orElseGet(() -> {

@@ -37,6 +37,18 @@ public class Monster {
     @OneToMany(mappedBy = "monster", orphanRemoval = true)
     private List<Trait> traits = new ArrayList<>();
 
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "condition_immunities_id")
+    private ConditionImmunities conditionImmunities;
+
+    public ConditionImmunities getConditionImmunities() {
+        return conditionImmunities;
+    }
+
+    public void setConditionImmunities(ConditionImmunities conditionImmunities) {
+        this.conditionImmunities = conditionImmunities;
+    }
+
     public List<Trait> getTraits() {
         return traits;
     }
