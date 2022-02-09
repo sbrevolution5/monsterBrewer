@@ -10,22 +10,22 @@ public class DamageTypes {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    public DamageSeverity bludgeoning;
-    public DamageSeverity piercing;
-    public DamageSeverity slashing;
-    public DamageSeverity nonmagicBludgeoning;
-    public DamageSeverity nonmagicPiercing;
-    public DamageSeverity nonmagicSlashing;
-    public DamageSeverity thunder;
-    public DamageSeverity force;
-    public DamageSeverity lightning;
-    public DamageSeverity necrotic;
-    public DamageSeverity radiant;
-    public DamageSeverity poison;
-    public DamageSeverity acid;
-    public DamageSeverity psychic;
-    public DamageSeverity Cold;
-    public DamageSeverity Fire;
+    public DamageSeverity bludgeoning = DamageSeverity.DEFAULT;
+    public DamageSeverity piercing= DamageSeverity.DEFAULT;
+    public DamageSeverity slashing= DamageSeverity.DEFAULT;
+    public DamageSeverity nonmagicBludgeoning= DamageSeverity.DEFAULT;
+    public DamageSeverity nonmagicPiercing= DamageSeverity.DEFAULT;
+    public DamageSeverity nonmagicSlashing= DamageSeverity.DEFAULT;
+    public DamageSeverity thunder= DamageSeverity.DEFAULT;
+    public DamageSeverity force= DamageSeverity.DEFAULT;
+    public DamageSeverity lightning= DamageSeverity.DEFAULT;
+    public DamageSeverity necrotic= DamageSeverity.DEFAULT;
+    public DamageSeverity radiant= DamageSeverity.DEFAULT;
+    public DamageSeverity poison= DamageSeverity.DEFAULT;
+    public DamageSeverity acid= DamageSeverity.DEFAULT;
+    public DamageSeverity psychic= DamageSeverity.DEFAULT;
+    public DamageSeverity Cold= DamageSeverity.DEFAULT;
+    public DamageSeverity Fire= DamageSeverity.DEFAULT;
 
     public Long getId() {
         return id;
