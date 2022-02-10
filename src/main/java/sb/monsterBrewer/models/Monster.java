@@ -1,10 +1,12 @@
 package sb.monsterBrewer.models;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@XmlRootElement(name="monster")
 public class Monster {
     @Id @GeneratedValue
     private Long id;
@@ -525,6 +527,28 @@ public class Monster {
     private boolean stunned;
     private boolean unconscious;
     private boolean exhaustion;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "environment")
+    private String environment;
+
+    public String getEnvironment() {
+        return environment;
+    }
+
+    public void setEnvironment(String environment) {
+        this.environment = environment;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public boolean isBlinded() {
         return blinded;

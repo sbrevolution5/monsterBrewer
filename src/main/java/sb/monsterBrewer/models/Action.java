@@ -15,6 +15,17 @@ public class Action {
     @JoinColumn(name = "monster_id")
     private Monster monster;
 
+    @Column(name = "attack")
+    private String attack;
+
+    public String getAttack() {
+        return attack;
+    }
+
+    public void setAttack(String attack) {
+        this.attack = attack;
+    }
+
     public Monster getMonster() {
         return monster;
     }
