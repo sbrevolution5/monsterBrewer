@@ -63,6 +63,8 @@ class MonsterController {
                     monster.setHasLegendaryActions(newMonster.isHasLegendaryActions());
                     monster.setLegendaryActions(newMonster.getLegendaryActions());
                     monster.setSpeed(newMonster.getSpeed());
+                    monster.setDescription(newMonster.getDescription());
+                    monster.setEnvironment(newMonster.getEnvironment());
                     //skills
                     monster.setDexterity(newMonster.getDexterity());
                     monster.setDexteritySave(newMonster.getDexteritySave());
