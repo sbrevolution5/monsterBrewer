@@ -1,31 +1,37 @@
 package sb.monsterBrewer.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import sb.monsterBrewer.dtos.CompendiumXml;
 import sb.monsterBrewer.models.Monster;
 
 
+import javax.sql.rowset.spi.XmlReader;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import javax.xml.bind.*;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
 public class XmlService {
-    public Long readMonsterXml(String filename) throws ParserConfigurationException, IOException, SAXException {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        Document document = builder.parse(
-                new File(filename)
-        );
-        Element root = document.getDocumentElement();
-        NodeList monster =  root.getChildNodes();
-
-        Monster newMonster = new Monster();
-
-        return newMonster.getId();
+    @Autowired
+    private JAXBContext jaxbContext;
+    public void readCompendiumXml(){
+        try{
+            jaxbContext= JAXBContext.newInstance(CompendiumXml.class);
+        } catch (Exception e){
+            throw new IllegalStateException(e);
+        }
+    }
+    public JAXBElement<CompendiumXml> unmarshal(String filename) throws JAXBException, XMLStreamException, FileNotFoundException {
+        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+        XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(new FileReader(filename));
+        return unmarshaller.unmarshal(reader, CompendiumXml.class);
     }
 }
