@@ -1,5 +1,6 @@
 package sb.monsterBrewer.dtos;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -50,6 +51,7 @@ public class MonsterXml {
 
     private String passive;
 
+    @XmlElement(name="int")
     private String intel;
 
     private String cr;
