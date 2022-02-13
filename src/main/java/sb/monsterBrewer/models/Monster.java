@@ -113,35 +113,36 @@ public class Monster {
         this.senses = senses;
     }
 
-    private int strength;
-    private int strengthSave;
-    private int dexterity;
-    private int dexteritySave;
-    private int constitution;
-    private int constitutionSave;
-    private int intelligence;
-    private int intelligenceSave;
-    private int wisdom;
-    private int wisdomSave;
-    private int charisma;
-    private int charismaSave;
-    private int athletics;
-    private int animalHandling;
-    private int acrobatics;
-    private int deception;
-    private int history;
-    private int insight;
-    private int intimidation;
-    private int investigation;
-    private int medicine;
-    private int nature;
-    private int perception;
-    private int performance;
-    private int persuasion;
-    private int religion;
-    private int sleightOfHand;
-    private int stealth;
-    private int survival;
+    private int strength = 10;
+    private int strengthSave = 0;
+    private int dexterity = 10;
+    private int dexteritySave=0;
+    private int constitution =10;
+    private int constitutionSave = 0;
+    private int intelligence= 10;
+    private int intelligenceSave = 0;
+    private int wisdom= 10;
+    private int wisdomSave=0;
+    private int charisma=10;
+    private int charismaSave=0;
+    private int athletics=0;
+    private int animalHandling=0;
+    private int acrobatics=0;
+    private int arcana=0;
+    private int deception=0;
+    private int history=0;
+    private int insight=0;
+    private int intimidation=0;
+    private int investigation=0;
+    private int medicine=0;
+    private int nature=0;
+    private int perception=0;
+    private int performance=0;
+    private int persuasion=0;
+    private int religion=0;
+    private int sleightOfHand=0;
+    private int stealth=0;
+    private int survival=0;
 
 
 
@@ -713,5 +714,13 @@ public class Monster {
 
     public void setInvestigation(int investigation) {
         this.investigation = investigation;
+    }
+
+    public int getArcana() {
+        return arcana;
+    }
+
+    public void setArcana(int arcana) {
+        this.arcana = arcana;
     }
 }

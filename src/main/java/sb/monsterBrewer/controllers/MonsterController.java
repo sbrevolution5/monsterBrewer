@@ -81,6 +81,7 @@ class MonsterController {
                     monster.setAcrobatics(newMonster.getAcrobatics());
                     monster.setAnimalHandling(newMonster.getAnimalHandling());
                     monster.setAthletics(newMonster.getAthletics());
+                    monster.setArcana(newMonster.getArcana());
                     monster.setDeception(newMonster.getDeception());
                     monster.setAcrobatics(newMonster.getAcrobatics());
                     monster.setStealth(newMonster.getStealth());
