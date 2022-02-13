@@ -132,6 +132,7 @@ public class Monster {
     private int history;
     private int insight;
     private int intimidation;
+    private int investigation;
     private int medicine;
     private int nature;
     private int perception;
@@ -526,6 +527,10 @@ public class Monster {
     private boolean restrained;
     private boolean stunned;
     private boolean unconscious;
+
+    @Column(name = "passive")
+    private String passive;
+
     private boolean exhaustion;
 
     @Column(name = "description")
@@ -533,6 +538,14 @@ public class Monster {
 
     @Column(name = "environment")
     private String environment;
+
+    public String getPassive() {
+        return passive;
+    }
+
+    public void setPassive(String passive) {
+        this.passive = passive;
+    }
 
     public String getEnvironment() {
         return environment;
@@ -692,5 +705,13 @@ public class Monster {
 
     public void setHasLegendaryActions(boolean hasLegendaryActions) {
         this.hasLegendaryActions = hasLegendaryActions;
+    }
+
+    public int getInvestigation() {
+        return investigation;
+    }
+
+    public void setInvestigation(int investigation) {
+        this.investigation = investigation;
     }
 }

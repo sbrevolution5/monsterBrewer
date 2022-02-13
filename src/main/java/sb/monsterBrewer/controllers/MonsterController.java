@@ -89,6 +89,7 @@ class MonsterController {
                     monster.setMedicine(newMonster.getMedicine());
                     monster.setNature(newMonster.getNature());
                     monster.setIntimidation(newMonster.getIntimidation());
+                    monster.setInvestigation(newMonster.getInvestigation());
                     monster.setPerception(newMonster.getPerception());
                     monster.setPerformance(newMonster.getPerformance());
                     monster.setReligion(newMonster.getReligion());
