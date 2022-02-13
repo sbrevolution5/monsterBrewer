@@ -17,6 +17,7 @@ public class Monster {
     private String hp;
     private String speed;
     private String senses;
+    private String languages;
     private boolean hasLegendaryActions;
 
 
@@ -722,5 +723,13 @@ public class Monster {
 
     public void setArcana(int arcana) {
         this.arcana = arcana;
+    }
+
+    public String getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(String languages) {
+        this.languages = languages;
     }
 }

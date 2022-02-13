@@ -65,6 +65,7 @@ class MonsterController {
                     monster.setSpeed(newMonster.getSpeed());
                     monster.setDescription(newMonster.getDescription());
                     monster.setEnvironment(newMonster.getEnvironment());
+                    monster.setLanguages(newMonster.getLanguages());
                     //skills
                     monster.setDexterity(newMonster.getDexterity());
                     monster.setDexteritySave(newMonster.getDexteritySave());
