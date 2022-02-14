@@ -5,7 +5,7 @@ public class ActionXml {
 
     private String name;
 
-    private String text;
+    private String[] text;
 
     public String getAttack ()
     {
@@ -27,12 +27,12 @@ public class ActionXml {
         this.name = name;
     }
 
-    public String getText ()
+    public String[] getText ()
     {
         return text;
     }
 
-    public void setText (String text)
+    public void setText (String[] text)
     {
         this.text = text;
     }
