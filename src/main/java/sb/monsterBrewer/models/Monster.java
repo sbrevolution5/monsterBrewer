@@ -10,7 +10,7 @@ import java.util.List;
 public class Monster {
     @Id @GeneratedValue
     private Long id;
-    private String race;
+    private String type;
     private String alignment;
     private String size;
     private String ac;
@@ -58,12 +58,12 @@ public class Monster {
         this.name = name;
     }
 
-    public String getRace() {
-        return race;
+    public String getType() {
+        return type;
     }
 
-    public void setRace(String race) {
-        this.race = race;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getAlignment() {

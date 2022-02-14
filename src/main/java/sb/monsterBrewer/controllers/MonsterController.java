@@ -53,7 +53,7 @@ class MonsterController {
                 .map(monster -> {
                     monster.setName(newMonster.getName());
                     monster.setAlignment(newMonster.getAlignment());
-                    monster.setRace(newMonster.getRace());
+                    monster.setType(newMonster.getType());
                     monster.setHp(newMonster.getHp());
                     monster.setAc(newMonster.getAc());
                     monster.setSenses(newMonster.getSenses());
