@@ -18,6 +18,9 @@ public class XmlToDbService {
         res.setHp(source.getHp());
         res.setPassive(source.getPassive());
         res.setLanguages(source.getLanguages());
+        res.setType(source.getType());
+        res.setSize(source.getSize());
+        res.setCr(source.getCr());
         parseStats(source, res);
         parseSaves(source, res);
         parseSkills(source, res);

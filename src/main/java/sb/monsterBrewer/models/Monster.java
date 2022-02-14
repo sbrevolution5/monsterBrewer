@@ -33,6 +33,7 @@ public class Monster {
     @OneToMany(mappedBy = "monster", orphanRemoval = true)
     private List<Trait> traits = new ArrayList<>();
     private List<Reaction> reactions;
+    private String cr;
 
     public List<Trait> getTraits() {
         return traits;
@@ -740,5 +741,13 @@ public class Monster {
 
     public List<Reaction> getReactions() {
         return reactions;
+    }
+
+    public void setCr(String cr) {
+        this.cr = cr;
+    }
+
+    public String getCr() {
+        return cr;
     }
 }
