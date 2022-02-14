@@ -86,6 +86,9 @@ public class XmlToDbService {
 
     private void parseTraits(MonsterXml source, Monster res) {
         List<Trait> traitList= new ArrayList<>();
+        if (source.getTrait()==null){
+            return;
+        }
         for (TraitXml trait : source.getTrait()){
             Trait t = parseTrait(trait);
             traitList.add(t);
@@ -110,6 +113,12 @@ public class XmlToDbService {
 
     private void parseLegendaryActions(MonsterXml source, Monster res) {
         List<LegendaryAction> legendaryActions= new ArrayList<>();
+        if (source.getLegendary() == null){
+            res.setHasLegendaryActions(false);
+            return;
+        }else{
+            res.setHasLegendaryActions(true);
+        }
         for (LegendaryXml legendaryXml : source.getLegendary()){
             LegendaryAction l = parseLegendary(legendaryXml);
             legendaryActions.add(l);
@@ -133,7 +142,11 @@ public class XmlToDbService {
     }
 
     private void parseReactions(MonsterXml source, Monster res) {
+
         List<Reaction> reactions = new ArrayList<>();
+        if (source.getReaction() == null){
+            return;
+        }
         for (ReactionXml reactionXml :
                 source.getReaction()) {
             Reaction r = parseReaction(reactionXml);
@@ -188,6 +201,9 @@ public class XmlToDbService {
 
     private void parseSaves(MonsterXml source, Monster res) {
         String saveList = source.getSave();
+        if (saveList == ""){
+            return;
+        }
         //Check if we find each skill in the list
         String[] splitSaves = saveList.split(",");
         for (String splitSave : splitSaves) {
