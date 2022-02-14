@@ -1,6 +1,5 @@
 package sb.monsterBrewer.services;
 
-import com.fasterxml.jackson.core.sym.CharsToNameCanonicalizer;
 import sb.monsterBrewer.dtos.MonsterXml;
 import sb.monsterBrewer.dtos.TraitXml;
 import sb.monsterBrewer.models.DamageSeverity;
@@ -56,19 +55,19 @@ public class XmlToDbService {
                 "bludgeoning, piercing, slashing from nonmagical attacks"
         };
         //TODO: If we find all the phys types with nonmagical, then we shouldn't look for regular phys types
-        for (int i = 0; i < damageTypes.length; i++) {
+        for (String damageType : damageTypes) {
             DamageSeverity resType = DamageSeverity.DEFAULT;
-            if (vulnerable.contains(damageTypes[i].toLowerCase(Locale.ROOT))) {
+            if (vulnerable.contains(damageType.toLowerCase(Locale.ROOT))) {
                 resType = DamageSeverity.VULNERABLE;
-            } else if (resist.contains(damageTypes[i].toLowerCase(Locale.ROOT))) {
+            } else if (resist.contains(damageType.toLowerCase(Locale.ROOT))) {
                 resType = DamageSeverity.RESISTANT;
-            } else if (immune.contains(damageTypes[i].toLowerCase(Locale.ROOT))) {
+            } else if (immune.contains(damageType.toLowerCase(Locale.ROOT))) {
                 resType = DamageSeverity.IMMUNE;
             }
-            switch (damageTypes[i]) {
+            switch (damageType) {
                 case "fire":
                     res.setFire(resType);
-                break;
+                    break;
                 case "cold":
                     res.setCold(resType);
                     break;
@@ -164,25 +163,12 @@ public class XmlToDbService {
                 skillNum *= -1;
             }
             switch (saveName.trim().toLowerCase(Locale.ROOT)) {
-                case "str":
-                    res.setStrengthSave(skillNum);
-                    break;
-                case "dex":
-                    res.setDexteritySave(skillNum);
-                    break;
-                case "con":
-                    res.setConstitutionSave(skillNum);
-                    break;
-                case "int":
-                    res.setIntelligenceSave(skillNum);
-                    break;
-                case "wis":
-                    res.setWisdomSave(skillNum);
-                    break;
-                case "cha":
-                    res.setCharismaSave(skillNum);
-                    break;
-
+                case "str" -> res.setStrengthSave(skillNum);
+                case "dex" -> res.setDexteritySave(skillNum);
+                case "con" -> res.setConstitutionSave(skillNum);
+                case "int" -> res.setIntelligenceSave(skillNum);
+                case "wis" -> res.setWisdomSave(skillNum);
+                case "cha" -> res.setCharismaSave(skillNum);
             }
         }
     }
@@ -201,60 +187,24 @@ public class XmlToDbService {
                 skillNum *= -1;
             }
             switch (skillName.trim().toLowerCase(Locale.ROOT)) {
-                case "athletics":
-                    res.setAthletics(skillNum);
-                    break;
-                case "acrobatics":
-                    res.setAcrobatics(skillNum);
-                    break;
-                case "arcana":
-                    res.setArcana(skillNum);
-                    break;
-                case "animal handling":
-                    res.setAnimalHandling(skillNum);
-                    break;
-                case "deception":
-                    res.setDeception(skillNum);
-                    break;
-                case "history":
-                    res.setHistory(skillNum);
-                    break;
-                case "insight":
-                    res.setInsight(skillNum);
-                    break;
-                case "intimidation":
-                    res.setIntimidation(skillNum);
-                    break;
-                case "investigation":
-                    res.setInvestigation(skillNum);
-                    break;
-                case "medicine":
-                    res.setMedicine(skillNum);
-                    break;
-                case "nature":
-                    res.setNature(skillNum);
-                    break;
-                case "perception":
-                    res.setPerception(skillNum);
-                    break;
-                case "performance":
-                    res.setPerformance(skillNum);
-                    break;
-                case "persuasion":
-                    res.setPersuasion(skillNum);
-                    break;
-                case "religion":
-                    res.setReligion(skillNum);
-                    break;
-                case "sleight of hand":
-                    res.setSleightOfHand(skillNum);
-                    break;
-                case "stealth":
-                    res.setStealth(skillNum);
-                    break;
-                case "survival":
-                    res.setSurvival(skillNum);
-                    break;
+                case "athletics" -> res.setAthletics(skillNum);
+                case "acrobatics" -> res.setAcrobatics(skillNum);
+                case "arcana" -> res.setArcana(skillNum);
+                case "animal handling" -> res.setAnimalHandling(skillNum);
+                case "deception" -> res.setDeception(skillNum);
+                case "history" -> res.setHistory(skillNum);
+                case "insight" -> res.setInsight(skillNum);
+                case "intimidation" -> res.setIntimidation(skillNum);
+                case "investigation" -> res.setInvestigation(skillNum);
+                case "medicine" -> res.setMedicine(skillNum);
+                case "nature" -> res.setNature(skillNum);
+                case "perception" -> res.setPerception(skillNum);
+                case "performance" -> res.setPerformance(skillNum);
+                case "persuasion" -> res.setPersuasion(skillNum);
+                case "religion" -> res.setReligion(skillNum);
+                case "sleight of hand" -> res.setSleightOfHand(skillNum);
+                case "stealth" -> res.setStealth(skillNum);
+                case "survival" -> res.setSurvival(skillNum);
             }
         }
 
