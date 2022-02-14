@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+/pom.rng
+/src/main/java/sb/monsterBrewer/exampleXml/MonsterManualCompendium.xml
+/src/main/java/sb/monsterBrewer/exampleXml/MonsterManualCompendium.xsd
+/src/main/java/sb/monsterBrewer/exampleXml/MonsterManualCompendium.xsd.xml
