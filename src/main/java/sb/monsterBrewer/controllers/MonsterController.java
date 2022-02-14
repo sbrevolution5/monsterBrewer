@@ -11,15 +11,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import sb.monsterBrewer.exceptions.MonsterNotFoundException;
 import sb.monsterBrewer.models.Monster;
-import sb.monsterBrewer.repositories.MonsterRepository;
+import sb.monsterBrewer.repositories.*;
 
 @RestController
 class MonsterController {
 
     private final MonsterRepository repository;
+    private final TraitRepository traitRepository;
+    private final ReactionRepository reactionRepository;
+    private final ActionRepository actionRepository;
+    private final LegendaryActionRepository legendaryActionRepository;
 
-    MonsterController(MonsterRepository repository) {
+    MonsterController(MonsterRepository repository, TraitRepository traitRepository, ReactionRepository reactionRepository, ActionRepository actionRepository, LegendaryActionRepository legendaryActionRepository) {
         this.repository = repository;
+        this.traitRepository = traitRepository;
+        this.reactionRepository = reactionRepository;
+        this.actionRepository = actionRepository;
+        this.legendaryActionRepository = legendaryActionRepository;
     }
 
 
