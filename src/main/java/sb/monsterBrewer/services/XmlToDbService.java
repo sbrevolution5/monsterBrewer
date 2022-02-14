@@ -204,7 +204,7 @@ public class XmlToDbService {
 
     private void parseSaves(MonsterXml source, Monster res) {
         String saveList = source.getSave();
-        if (saveList == ""){
+        if (Objects.equals(saveList, "")){
             return;
         }
         //Check if we find each skill in the list
