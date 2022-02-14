@@ -32,6 +32,7 @@ public class Monster {
 
     @OneToMany(mappedBy = "monster", orphanRemoval = true)
     private List<Trait> traits = new ArrayList<>();
+    private List<Reaction> reactions;
 
     public List<Trait> getTraits() {
         return traits;
@@ -731,5 +732,13 @@ public class Monster {
 
     public void setLanguages(String languages) {
         this.languages = languages;
+    }
+
+    public void setReactions(List<Reaction> reactions) {
+        this.reactions = reactions;
+    }
+
+    public List<Reaction> getReactions() {
+        return reactions;
     }
 }
