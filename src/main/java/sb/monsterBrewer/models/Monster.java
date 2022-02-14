@@ -35,6 +35,10 @@ public class Monster {
     private List<Reaction> reactions;
     private String cr;
 
+    @ManyToOne
+    @JoinColumn(name = "compendium_id")
+    private Compendium compendium;
+
     public List<Trait> getTraits() {
         return traits;
     }
@@ -542,6 +546,14 @@ public class Monster {
 
     @Column(name = "environment")
     private String environment;
+
+    public Compendium getCompendium() {
+        return compendium;
+    }
+
+    public void setCompendium(Compendium compendium) {
+        this.compendium = compendium;
+    }
 
     public String getPassive() {
         return passive;

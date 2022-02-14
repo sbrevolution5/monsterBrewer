@@ -34,4 +34,10 @@ public class XmlService {
         XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(new FileReader(filename));
         return unmarshaller.unmarshal(reader, CompendiumXml.class);
     }
+    public JAXBElement<CompendiumXml> unmarshalXml(String xml) throws JAXBException, XMLStreamException {
+        readCompendiumXml();
+        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+        XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xml));
+        return unmarshaller.unmarshal(reader, CompendiumXml.class);
+    }
 }
