@@ -1,12 +1,7 @@
 package sb.monsterBrewer.services;
 
-import sb.monsterBrewer.dtos.LegendaryXml;
-import sb.monsterBrewer.dtos.MonsterXml;
-import sb.monsterBrewer.dtos.TraitXml;
-import sb.monsterBrewer.models.DamageSeverity;
-import sb.monsterBrewer.models.LegendaryAction;
-import sb.monsterBrewer.models.Monster;
-import sb.monsterBrewer.models.Trait;
+import sb.monsterBrewer.dtos.*;
+import sb.monsterBrewer.models.*;
 
 import java.util.*;
 
@@ -27,7 +22,7 @@ public class XmlToDbService {
         parseSaves(source, res);
         parseSkills(source, res);
         parseActions(source, res);
-        parseLegendaries(source, res);
+        parseLegendaryActions(source, res);
         parseTraits(source, res);
         parseReactions(source, res);
         parseDamageTypes(source, res);
@@ -113,7 +108,7 @@ public class XmlToDbService {
         return t;
     }
 
-    private void parseLegendaries(MonsterXml source, Monster res) {
+    private void parseLegendaryActions(MonsterXml source, Monster res) {
         List<LegendaryAction> legendaryActions= new ArrayList<>();
         for (LegendaryXml legendaryXml : source.getLegendary()){
             LegendaryAction l = parseLegendary(legendaryXml);
@@ -138,11 +133,57 @@ public class XmlToDbService {
     }
 
     private void parseReactions(MonsterXml source, Monster res) {
+        List<Reaction> reactions = new ArrayList<>();
+        for (ReactionXml reactionXml :
+                source.getReaction()) {
+            Reaction r = parseReaction(reactionXml);
+            reactions.add(r);
+        }
+        for (Reaction r:
+             reactions) {
+            r.setMonster(res);
+        }
+        res.setReactions(reactions);
+    }
 
+    private Reaction parseReaction(ReactionXml reactionXml) {
+        Reaction r = new Reaction();
+        r.setName(reactionXml.getName());
+        StringBuilder desc = new StringBuilder();
+        for (String s :
+                reactionXml.getText()) {
+            desc.append(s);
+        }
+        r.setDescription(desc.toString());
+        r.setAttack(reactionXml.getAttack());
+        return r;
     }
 
     private void parseActions(MonsterXml source, Monster res) {
+        List<Action> actions = new ArrayList<>();
+        for (ActionXml actionXml :
+                source.getAction()) {
+            Action a = parseAction(actionXml);
+            actions.add(a);
+        }
+        for (Action a:
+                actions) {
+            a.setMonster(res);
+        }
+        res.setActions(actions);
+    }
 
+    private Action parseAction(ActionXml actionXml) {
+        Action r = new Action();
+        r.setName(actionXml.getName());
+        StringBuilder desc = new StringBuilder();
+        for (String s :
+                actionXml.getText()) {
+            desc.append(s);
+        }
+        r.setDescription(desc.toString());
+        r.setAttack(actionXml.getAttack());
+        return r;
     }
 
     private void parseSaves(MonsterXml source, Monster res) {
