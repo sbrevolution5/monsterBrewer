@@ -3,6 +3,7 @@ package sb.monsterBrewer.services;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 import sb.monsterBrewer.dtos.CompendiumXml;
+import sb.monsterBrewer.models.Monster;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -23,6 +24,8 @@ class xmlServiceTest {
 
     @Test
     void readCompendiumXml() throws XMLStreamException, JAXBException, FileNotFoundException {
+        Monster expectedMonster = new Monster();
+
         XmlService service = new XmlService();
         service.readCompendiumXml();
         JAXBElement<CompendiumXml> res = service.unmarshal("F:\\CoderFoundry\\Java\\monsterBrewer\\monsterBrewer\\src\\main\\java\\sb\\monsterBrewer\\exampleXml\\MonsterManualCompendium.xml");
