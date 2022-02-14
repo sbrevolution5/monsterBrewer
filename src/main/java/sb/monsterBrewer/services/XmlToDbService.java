@@ -1,8 +1,10 @@
 package sb.monsterBrewer.services;
 
+import sb.monsterBrewer.dtos.LegendaryXml;
 import sb.monsterBrewer.dtos.MonsterXml;
 import sb.monsterBrewer.dtos.TraitXml;
 import sb.monsterBrewer.models.DamageSeverity;
+import sb.monsterBrewer.models.LegendaryAction;
 import sb.monsterBrewer.models.Monster;
 import sb.monsterBrewer.models.Trait;
 
@@ -25,7 +27,7 @@ public class XmlToDbService {
         parseSaves(source, res);
         parseSkills(source, res);
         parseActions(source, res);
-        parseLegendary(source, res);
+        parseLegendaries(source, res);
         parseTraits(source, res);
         parseReactions(source, res);
         parseDamageTypes(source, res);
@@ -111,8 +113,28 @@ public class XmlToDbService {
         return t;
     }
 
-    private void parseLegendary(MonsterXml source, Monster res) {
+    private void parseLegendaries(MonsterXml source, Monster res) {
+        List<LegendaryAction> legendaryActions= new ArrayList<>();
+        for (LegendaryXml legendaryXml : source.getLegendary()){
+            LegendaryAction l = parseLegendary(legendaryXml);
+            legendaryActions.add(l);
+        }
+        for(LegendaryAction l: legendaryActions){
+            l.setMonster(res);
+        }
+        res.setLegendaryActions(legendaryActions);
+    }
 
+    private LegendaryAction parseLegendary(LegendaryXml legendaryXml) {
+        LegendaryAction l = new LegendaryAction();
+        l.setName(legendaryXml.getName());
+        StringBuilder desc = new StringBuilder();
+        for (String s:
+                legendaryXml.getText()) {
+            desc.append(s);
+        }
+        l.setDescription(desc.toString());
+        return l;
     }
 
     private void parseReactions(MonsterXml source, Monster res) {
