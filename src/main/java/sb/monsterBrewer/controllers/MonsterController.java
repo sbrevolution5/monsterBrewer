@@ -41,6 +41,10 @@ class MonsterController {
 
     @PostMapping("/monsters")
     Monster newMonster(@RequestBody Monster newMonster) {
+        actionRepository.saveAll(newMonster.getActions());
+        legendaryActionRepository.saveAll(newMonster.getLegendaryActions());
+        reactionRepository.saveAll(newMonster.getReactions());
+        traitRepository.saveAll(newMonster.getTraits());
         return repository.save(newMonster);
     }
 
