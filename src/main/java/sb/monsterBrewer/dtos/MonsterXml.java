@@ -25,13 +25,13 @@ public class MonsterXml {
 
     private String dex;
 
-    private LegendaryXml legendary;
+    private LegendaryXml[] legendary;
 
     private String skill;
 
-    private TraitXml trait;
+    private TraitXml[] trait;
 
-    private ActionXml action;
+    private ActionXml[] action;
 
     private String spells;
 
@@ -43,7 +43,7 @@ public class MonsterXml {
 
     private String immune;
 
-    private ReactionXml reaction;
+    private ReactionXml[] reaction;
 
     private String languages;
 
@@ -168,12 +168,12 @@ public class MonsterXml {
         this.dex = dex;
     }
 
-    public LegendaryXml getLegendary ()
+    public LegendaryXml[] getLegendary ()
     {
         return legendary;
     }
 
-    public void setLegendary (LegendaryXml legendary)
+    public void setLegendary (LegendaryXml[] legendary)
     {
         this.legendary = legendary;
     }
@@ -188,22 +188,22 @@ public class MonsterXml {
         this.skill = skill;
     }
 
-    public TraitXml getTrait ()
+    public TraitXml[] getTrait ()
     {
         return trait;
     }
 
-    public void setTrait (TraitXml trait)
+    public void setTrait (TraitXml[] trait)
     {
         this.trait = trait;
     }
 
-    public ActionXml getAction ()
+    public ActionXml[] getAction ()
     {
         return action;
     }
 
-    public void setAction (ActionXml action)
+    public void setAction (ActionXml[] action)
     {
         this.action = action;
     }
@@ -258,12 +258,12 @@ public class MonsterXml {
         this.immune = immune;
     }
 
-    public ReactionXml getReaction ()
+    public ReactionXml[] getReaction ()
     {
         return reaction;
     }
 
-    public void setReaction (ReactionXml reaction)
+    public void setReaction (ReactionXml[] reaction)
     {
         this.reaction = reaction;
     }
