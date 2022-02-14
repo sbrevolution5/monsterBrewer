@@ -2,10 +2,12 @@ package sb.monsterBrewer.services;
 
 import com.fasterxml.jackson.core.sym.CharsToNameCanonicalizer;
 import sb.monsterBrewer.dtos.MonsterXml;
+import sb.monsterBrewer.dtos.TraitXml;
 import sb.monsterBrewer.models.DamageSeverity;
 import sb.monsterBrewer.models.Monster;
+import sb.monsterBrewer.models.Trait;
 
-import java.util.Locale;
+import java.util.*;
 
 public class XmlToDbService {
     public Monster parseMonster(MonsterXml source) {
@@ -34,8 +36,8 @@ public class XmlToDbService {
     }
 
     private void parseDamageTypes(MonsterXml source, Monster res) {
-        var vuln = source.getVulnerable();
-        var immu = source.getImmune();
+        var vulnerable = source.getVulnerable();
+        var immune = source.getImmune();
         var resist = source.getResist();
         var damageTypes = new String[]{
                 "fire",
@@ -56,11 +58,11 @@ public class XmlToDbService {
         //TODO: If we find all the phys types with nonmagical, then we shouldn't look for regular phys types
         for (int i = 0; i < damageTypes.length; i++) {
             DamageSeverity resType = DamageSeverity.DEFAULT;
-            if (vuln.contains(damageTypes[i].toLowerCase(Locale.ROOT))) {
+            if (vulnerable.contains(damageTypes[i].toLowerCase(Locale.ROOT))) {
                 resType = DamageSeverity.VULNERABLE;
             } else if (resist.contains(damageTypes[i].toLowerCase(Locale.ROOT))) {
                 resType = DamageSeverity.RESISTANT;
-            } else if (immu.contains(damageTypes[i].toLowerCase(Locale.ROOT))) {
+            } else if (immune.contains(damageTypes[i].toLowerCase(Locale.ROOT))) {
                 resType = DamageSeverity.IMMUNE;
             }
             switch (damageTypes[i]) {
@@ -113,7 +115,27 @@ public class XmlToDbService {
     }
 
     private void parseTraits(MonsterXml source, Monster res) {
+        List<Trait> traitList= new ArrayList<>();
+        for (TraitXml trait : source.getTrait()){
+            Trait t = parseTrait(trait);
+            traitList.add(t);
+        }
+        for(Trait t: traitList){
+            t.setMonster(res);
+        }
+        res.setTraits(traitList);
+    }
 
+    private Trait parseTrait(TraitXml trait) {
+        Trait t = new Trait();
+        t.setName(trait.getName());
+        String desc = "";
+        for (String s:
+             trait.getText()) {
+            desc += s;
+        }
+        t.setDescription(desc);
+        return t;
     }
 
     private void parseLegendary(MonsterXml source, Monster res) {
@@ -129,15 +151,48 @@ public class XmlToDbService {
     }
 
     private void parseSaves(MonsterXml source, Monster res) {
+        String saveList = source.getSave();
+        //Check if we find each skill in the list
+        String[] splitSaves = saveList.split(",");
+        for (String splitSave : splitSaves) {
+            var save = splitSave.trim();
+            boolean hasNegativeMod = save.contains("-");
+            var saveParts = save.split("[+-]");
+            var saveName = saveParts[0];
+            int skillNum = Integer.parseInt(saveParts[1]);
+            if (hasNegativeMod) {
+                skillNum *= -1;
+            }
+            switch (saveName.trim().toLowerCase(Locale.ROOT)) {
+                case "str":
+                    res.setStrengthSave(skillNum);
+                    break;
+                case "dex":
+                    res.setDexteritySave(skillNum);
+                    break;
+                case "con":
+                    res.setConstitutionSave(skillNum);
+                    break;
+                case "int":
+                    res.setIntelligenceSave(skillNum);
+                    break;
+                case "wis":
+                    res.setWisdomSave(skillNum);
+                    break;
+                case "cha":
+                    res.setCharismaSave(skillNum);
+                    break;
 
+            }
+        }
     }
 
     private void parseSkills(MonsterXml source, Monster res) {
         String skillList = source.getSkill();
         //Check if we find each skill in the list
         String[] splitSkills = skillList.split(",");
-        for (int i = 0; i < splitSkills.length; i++) {
-            var skill = splitSkills[i].trim();
+        for (String splitSkill : splitSkills) {
+            var skill = splitSkill.trim();
             boolean hasNegativeMod = skill.contains("-");
             var skillParts = skill.split("[+-]");
             var skillName = skillParts[0];
