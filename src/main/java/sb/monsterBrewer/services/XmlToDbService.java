@@ -65,50 +65,24 @@ public class XmlToDbService {
                 resType = DamageSeverity.IMMUNE;
             }
             switch (damageType) {
-                case "fire":
-                    res.setFire(resType);
-                    break;
-                case "cold":
-                    res.setCold(resType);
-                    break;
-                case "lightning":
-                    res.setLightning(resType);
-                    break;
-                case "thunder":
-                    res.setThunder(resType);
-                    break;
-                case "force":
-                    res.setForce(resType);
-                    break;
-                case "bludgeoning":
-                    res.setBludgeoning(resType);
-                    break;
-                case "piercing":
-                    res.setPiercing(resType);
-                    break;
-                case "slashing":
-                    res.setSlashing(resType);
-                    break;
-                case "poison":
-                    res.setPoison(resType);
-                    break;
-                case "psychic":
-                    res.setPsychic(resType);
-                    break;
-                case "necrotic":
-                    res.setNecrotic(resType);
-                    break;
-                case "radiant":
-                    res.setRadiant(resType);
-                    break;
-                case "acid":
-                    res.setAcid(resType);
-                    break;
-                case "bludgeoning, piercing, slashing from nonmagical attacks":
+                case "fire" -> res.setFire(resType);
+                case "cold" -> res.setCold(resType);
+                case "lightning" -> res.setLightning(resType);
+                case "thunder" -> res.setThunder(resType);
+                case "force" -> res.setForce(resType);
+                case "bludgeoning" -> res.setBludgeoning(resType);
+                case "piercing" -> res.setPiercing(resType);
+                case "slashing" -> res.setSlashing(resType);
+                case "poison" -> res.setPoison(resType);
+                case "psychic" -> res.setPsychic(resType);
+                case "necrotic" -> res.setNecrotic(resType);
+                case "radiant" -> res.setRadiant(resType);
+                case "acid" -> res.setAcid(resType);
+                case "bludgeoning, piercing, slashing from nonmagical attacks" -> {
                     res.setNonMagicSlashing(resType);
                     res.setNonMagicBludgeoning(resType);
                     res.setNonMagicPiercing(resType);
-                    break;
+                }
             }
         }
     }
@@ -128,12 +102,12 @@ public class XmlToDbService {
     private Trait parseTrait(TraitXml trait) {
         Trait t = new Trait();
         t.setName(trait.getName());
-        String desc = "";
+        StringBuilder desc = new StringBuilder();
         for (String s:
              trait.getText()) {
-            desc += s;
+            desc.append(s);
         }
-        t.setDescription(desc);
+        t.setDescription(desc.toString());
         return t;
     }
 
