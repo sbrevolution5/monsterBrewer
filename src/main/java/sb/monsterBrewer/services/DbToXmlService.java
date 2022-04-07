@@ -3,10 +3,7 @@ package sb.monsterBrewer.services;
 import sb.monsterBrewer.dtos.*;
 import sb.monsterBrewer.models.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.*;
 
 public class DbToXmlService {
     public MonsterXml unparseMonster(Monster source) {
@@ -25,13 +22,13 @@ public class DbToXmlService {
         res.setSize(source.getSize());
         res.setCr(source.getCr());
         unparseStats(source, res);
-        parseSaves(source, res);
-        parseSkills(source, res);
-        parseActions(source, res);
-        parseLegendaryActions(source, res);
-        parseTraits(source, res);
-        parseReactions(source, res);
-        parseDamageTypes(source, res);
+        unparseSaves(source, res);
+        unparseSkills(source, res);
+        unparseActions(source, res);
+        unparseLegendaryActions(source, res);
+        unparseTraits(source, res);
+        unparseReactions(source, res);
+        unparseDamageTypes(source, res);
 
         return res;
 
@@ -233,39 +230,42 @@ public class DbToXmlService {
     }
 
     private void unparseSkills(Monster source, MonsterXml res) {
-        String skillList = source.getSkill();
+        StringJoiner sb = new StringJoiner(" ");
         //Check if we find each skill in the list
-        String[] splitSkills = skillList.split(",");
-        for (String splitSkill : splitSkills) {
-            var skill = splitSkill.trim();
-            boolean hasNegativeMod = skill.contains("-");
-            var skillParts = skill.split("[+-]");
-            var skillName = skillParts[0];
-            int skillNum = Integer.parseInt(skillParts[1]);
-            if (hasNegativeMod) {
-                skillNum *= -1;
+        String[] skillList = new String[]{"athletics", "acrobatics","arcana","animal handling", "deception","history","insight","intimidation","investigation","medicine","nature","perception","performance","persuasion","religion","sleight of hand","stealth","survival"};
+        for(String skillName:skillList){
+            int skillNum=0;
+            switch (skillName) {
+                case "athletics" -> skillNum = source.getAthletics();
+                case "acrobatics" -> skillNum = source.getAcrobatics();
+                case "arcana" -> skillNum = source.getArcana();
+                case "animal handling" -> skillNum = source.getAnimalHandling();
+                case "deception" -> skillNum = source.getDeception();
+                case "history" -> skillNum = source.getHistory();
+                case "insight" -> skillNum = source.getInsight();
+                case "intimidation" -> skillNum = source.getIntimidation();
+                case "investigation" -> skillNum = source.getInvestigation();
+                case "medicine" -> skillNum = source.getMedicine();
+                case "nature" -> skillNum = source.getNature();
+                case "perception" -> skillNum = source.getPerception();
+                case "performance" -> skillNum = source.getPerformance();
+                case "persuasion" -> skillNum = source.getPersuasion();
+                case "religion" -> skillNum = source.getReligion();
+                case "sleight of hand" -> skillNum = source.getSleightOfHand();
+                case "stealth" -> skillNum = source.getStealth();
+                case "survival" -> skillNum = source.getSurvival();
             }
-            switch (skillName.trim().toLowerCase(Locale.ROOT)) {
-                case "athletics" -> res.setAthletics(skillNum);
-                case "acrobatics" -> res.setAcrobatics(skillNum);
-                case "arcana" -> res.setArcana(skillNum);
-                case "animal handling" -> res.setAnimalHandling(skillNum);
-                case "deception" -> res.setDeception(skillNum);
-                case "history" -> res.setHistory(skillNum);
-                case "insight" -> res.setInsight(skillNum);
-                case "intimidation" -> res.setIntimidation(skillNum);
-                case "investigation" -> res.setInvestigation(skillNum);
-                case "medicine" -> res.setMedicine(skillNum);
-                case "nature" -> res.setNature(skillNum);
-                case "perception" -> res.setPerception(skillNum);
-                case "performance" -> res.setPerformance(skillNum);
-                case "persuasion" -> res.setPersuasion(skillNum);
-                case "religion" -> res.setReligion(skillNum);
-                case "sleight of hand" -> res.setSleightOfHand(skillNum);
-                case "stealth" -> res.setStealth(skillNum);
-                case "survival" -> res.setSurvival(skillNum);
+            if (skillNum!=0){
+                sb.add(skillName);
+                String op = "+";
+                if (skillNum<0){
+                    op="-";
+                }
+                sb.add(op+skillNum);
+
             }
         }
+        res.setSkill(sb.toString());
 
     }
 
