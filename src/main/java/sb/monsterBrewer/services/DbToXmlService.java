@@ -87,30 +87,19 @@ public class DbToXmlService {
         }
     }
 
-    private void parseTraits(MonsterXml source, Monster res) {
-        List<Trait> traitList= new ArrayList<>();
-        if (source.getTrait()==null){
-            return;
-        }
-        for (TraitXml trait : source.getTrait()){
-            Trait t = parseTrait(trait);
+    private void unparseTraits(Monster source, MonsterXml res) {
+        List<TraitXml> traitList= new ArrayList<>();
+        for (Trait trait : source.getTraits()){
+            TraitXml t = unparseTrait(trait);
             traitList.add(t);
         }
-        for(Trait t: traitList){
-            t.setMonster(res);
-        }
-        res.setTraits(traitList);
+        res.setTrait((TraitXml[]) traitList.toArray());
     }
 
-    private Trait parseTrait(TraitXml trait) {
-        Trait t = new Trait();
+    private TraitXml unparseTrait(Trait trait) {
+        TraitXml t = new TraitXml();
         t.setName(trait.getName());
-        StringBuilder desc = new StringBuilder();
-        for (String s:
-                trait.getText()) {
-            desc.append(s);
-        }
-        t.setDescription(desc.toString());
+        t.setText(trait.getDescription().split("\n"));
         return t;
     }
 
