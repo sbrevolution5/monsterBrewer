@@ -34,10 +34,10 @@ public class DbToXmlService {
 
     }
 
-    private void parseDamageTypes(MonsterXml source, Monster res) {
-        var vulnerable = source.getVulnerable();
-        var immune = source.getImmune();
-        var resist = source.getResist();
+    private void unparseDamageTypes(Monster source, MonsterXml res) {
+        var vulnerable = new StringJoiner(" ");
+        var immune = new StringJoiner(" ");
+        var resist = new StringJoiner(" ");
         var damageTypes = new String[]{
                 "fire",
                 "cold",
@@ -55,45 +55,50 @@ public class DbToXmlService {
                 "bludgeoning, piercing, slashing from nonmagical attacks"
         };
         //TODO: If we find all the phys types with nonmagical, then we shouldn't look for regular phys types
+        //check each type, if default ignore, if vulnerable add to v, etc
+        Map<String, DamageSeverity> damageSeverityMap= new HashMap<>();
         for (String damageType : damageTypes) {
-            DamageSeverity resType = DamageSeverity.DEFAULT;
-            if (vulnerable.contains(damageType.toLowerCase(Locale.ROOT))) {
-                resType = DamageSeverity.VULNERABLE;
-            } else if (resist.contains(damageType.toLowerCase(Locale.ROOT))) {
-                resType = DamageSeverity.RESISTANT;
-            } else if (immune.contains(damageType.toLowerCase(Locale.ROOT))) {
-                resType = DamageSeverity.IMMUNE;
-            }
+            DamageSeverity severity;
             switch (damageType) {
-                case "fire" -> res.setFire(resType);
-                case "cold" -> res.setCold(resType);
-                case "lightning" -> res.setLightning(resType);
-                case "thunder" -> res.setThunder(resType);
-                case "force" -> res.setForce(resType);
-                case "bludgeoning" -> res.setBludgeoning(resType);
-                case "piercing" -> res.setPiercing(resType);
-                case "slashing" -> res.setSlashing(resType);
-                case "poison" -> res.setPoison(resType);
-                case "psychic" -> res.setPsychic(resType);
-                case "necrotic" -> res.setNecrotic(resType);
-                case "radiant" -> res.setRadiant(resType);
-                case "acid" -> res.setAcid(resType);
-                case "bludgeoning, piercing, slashing from nonmagical attacks" -> {
-                    res.setNonMagicSlashing(resType);
-                    res.setNonMagicBludgeoning(resType);
-                    res.setNonMagicPiercing(resType);
-                }
+                case "fire" -> severity = source.getFire();
+                case "cold" -> severity = source.getCold();
+                case "lightning" -> severity = source.getLightning();
+                case "thunder" -> severity = source.getThunder();
+                case "force" -> severity = source.getForce();
+                case "bludgeoning" -> severity = source.getBludgeoning();
+                case "piercing" -> severity = source.getPiercing();
+                case "slashing" -> severity = source.getSlashing();
+                case "poison" -> severity = source.getPoison();
+                case "psychic" -> severity = source.getPsychic();
+                case "necrotic" -> severity = source.getNecrotic();
+                case "radiant" -> severity = source.getRadiant();
+                case "acid" -> severity = source.getAcid();
+                case "bludgeoning, piercing, slashing from nonmagical attacks" -> severity = source.getNonMagicPiercing();
+                default -> throw new IllegalStateException("Unexpected value: " + damageType);
+            }
+            damageSeverityMap.put(damageType,severity);
+
+        }
+        for (String damageType :
+                damageTypes) {
+            switch (damageSeverityMap.get(damageType)){
+                case IMMUNE -> immune.add(damageType);
+                case RESISTANT -> resist.add(damageType);
+                case VULNERABLE -> vulnerable.add(damageType);
             }
         }
+        res.setResist(resist.toString());
+        res.setImmune(immune.toString());
+        res.setVulnerable(vulnerable.toString());
     }
 
     private void unparseTraits(Monster source, MonsterXml res) {
-        List<TraitXml> traitList= new ArrayList<>();
-        for (Trait trait : source.getTraits()){
-            TraitXml t = unparseTrait(trait);
-            traitList.add(t);
+        TraitXml[] traitList= new TraitXml[source.getTraits().size()];
+        for (int i = 0; i < source.getTraits().size(); i++) {
+            TraitXml t = unparseTrait(source.getTraits().get(i));
+            traitList[i]=t;
         }
-        res.setTrait((TraitXml[]) traitList.toArray());
+        res.setTrait(traitList);
     }
 
     private TraitXml unparseTrait(Trait trait) {
@@ -107,12 +112,12 @@ public class DbToXmlService {
         if (source.isHasLegendaryActions()){
             return;
         }
-        List<LegendaryXml> legendaryActions= new ArrayList<>();
-        for (LegendaryAction legendary : source.getLegendaryActions()){
-            LegendaryXml l = unparseLegendary(legendary);
-            legendaryActions.add(l);
+        LegendaryXml[] legendaryActions= new LegendaryXml[source.getLegendaryActions().size()];
+        for (int i = 0; i < source.getLegendaryActions().size(); i++) {
+            LegendaryXml l = unparseLegendary(source.getLegendaryActions().get(i));
+            legendaryActions[i]=l;
         }
-        res.setLegendary((LegendaryXml[]) legendaryActions.toArray());
+        res.setLegendary(legendaryActions);
     }
 
     private LegendaryXml unparseLegendary(LegendaryAction legendaryAction) {
