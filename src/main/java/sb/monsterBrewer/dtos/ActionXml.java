@@ -1,5 +1,9 @@
 package sb.monsterBrewer.dtos;
 
+import javax.xml.bind.annotation.XmlType;
+import java.util.Arrays;
+
+@XmlType(propOrder = {"name","text","attack"})
 public class ActionXml {
     private String attack;
 
@@ -40,6 +44,6 @@ public class ActionXml {
     @Override
     public String toString()
     {
-        return "ClassPojo [attack = "+attack+", name = "+name+", text = "+text+"]";
+        return "ClassPojo [attack = "+attack+", name = "+name+", text = "+ Arrays.toString(text) +"]";
     }
 }
