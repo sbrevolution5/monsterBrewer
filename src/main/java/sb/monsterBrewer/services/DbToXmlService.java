@@ -3,7 +3,9 @@ package sb.monsterBrewer.services;
 import sb.monsterBrewer.dtos.*;
 import sb.monsterBrewer.models.*;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringJoiner;
 
 public class DbToXmlService {
     public MonsterXml unparseMonster(Monster source) {
@@ -21,6 +23,7 @@ public class DbToXmlService {
         res.setType(source.getType());
         res.setSize(source.getSize());
         res.setCr(source.getCr());
+        res.setSenses(source.getSenses());
         unparseStats(source, res);
         unparseSaves(source, res);
         unparseSkills(source, res);
@@ -29,9 +32,57 @@ public class DbToXmlService {
         unparseTraits(source, res);
         unparseReactions(source, res);
         unparseDamageTypes(source, res);
+        unparseConditions(source, res);
 
         return res;
 
+    }
+
+    private void unparseConditions(Monster source, MonsterXml res) {
+        StringJoiner stringJoiner = new StringJoiner(" ");
+        var conditionTypes = new String[]{
+                "Blinded",
+                "Charmed",
+                "Deafened",
+                "Frightened",
+                "Grappled",
+                "Incapacitated",
+                "Invisible",
+                "Paralyzed",
+                "Petrified",
+                "Poisoned",
+                "Prone",
+                "Restrained",
+                "Stunned",
+                "Unconscious",
+                "Exhaustion"
+        };
+        for (String condition :
+                conditionTypes) {
+            boolean isImmune = false;
+            switch (condition) {
+                case "Blinded" -> isImmune = source.isBlinded();
+                case "Charmed" -> isImmune = source.isCharmed();
+                case "Deafened" -> isImmune = source.isDeafened();
+                case "Frightened" -> isImmune = source.isFrightened();
+                case "Grappled" -> isImmune = source.isGrappled();
+                case "Incapacitated" -> isImmune = source.isIncapacitated();
+                case "Invisible" -> isImmune = source.isInvisible();
+                case "Paralyzed" -> isImmune = source.isParalyzed();
+                case "Petrified" -> isImmune = source.isPetrified();
+                case "Poisoned" -> isImmune = source.isPoisoned();
+                case "Prone" -> isImmune = source.isProne();
+                case "Restrained" -> isImmune = source.isRestrained();
+                case "Stunned" -> isImmune = source.isStunned();
+                case "Unconscious" -> isImmune = source.isUnconscious();
+                case "Exhaustion" -> isImmune = source.isExhaustion();
+            }
+            if (isImmune) {
+
+                stringJoiner.add(condition);
+            }
+        }
+        res.setConditionImmune(stringJoiner.toString());
     }
 
     private void unparseDamageTypes(Monster source, MonsterXml res) {
@@ -56,7 +107,7 @@ public class DbToXmlService {
         };
         //TODO: If we find all the phys types with nonmagical, then we shouldn't look for regular phys types
         //check each type, if default ignore, if vulnerable add to v, etc
-        Map<String, DamageSeverity> damageSeverityMap= new HashMap<>();
+        Map<String, DamageSeverity> damageSeverityMap = new HashMap<>();
         for (String damageType : damageTypes) {
             DamageSeverity severity;
             switch (damageType) {
@@ -76,12 +127,12 @@ public class DbToXmlService {
                 case "bludgeoning, piercing, slashing from nonmagical attacks" -> severity = source.getNonMagicPiercing();
                 default -> throw new IllegalStateException("Unexpected value: " + damageType);
             }
-            damageSeverityMap.put(damageType,severity);
+            damageSeverityMap.put(damageType, severity);
 
         }
         for (String damageType :
                 damageTypes) {
-            switch (damageSeverityMap.get(damageType)){
+            switch (damageSeverityMap.get(damageType)) {
                 case IMMUNE -> immune.add(damageType);
                 case RESISTANT -> resist.add(damageType);
                 case VULNERABLE -> vulnerable.add(damageType);
@@ -93,10 +144,10 @@ public class DbToXmlService {
     }
 
     private void unparseTraits(Monster source, MonsterXml res) {
-        TraitXml[] traitList= new TraitXml[source.getTraits().size()];
+        TraitXml[] traitList = new TraitXml[source.getTraits().size()];
         for (int i = 0; i < source.getTraits().size(); i++) {
             TraitXml t = unparseTrait(source.getTraits().get(i));
-            traitList[i]=t;
+            traitList[i] = t;
         }
         res.setTrait(traitList);
     }
@@ -109,13 +160,13 @@ public class DbToXmlService {
     }
 
     private void unparseLegendaryActions(Monster source, MonsterXml res) {
-        if (source.isHasLegendaryActions()){
+        if (source.isHasLegendaryActions()) {
             return;
         }
-        LegendaryXml[] legendaryActions= new LegendaryXml[source.getLegendaryActions().size()];
+        LegendaryXml[] legendaryActions = new LegendaryXml[source.getLegendaryActions().size()];
         for (int i = 0; i < source.getLegendaryActions().size(); i++) {
             LegendaryXml l = unparseLegendary(source.getLegendaryActions().get(i));
-            legendaryActions[i]=l;
+            legendaryActions[i] = l;
         }
         res.setLegendary(legendaryActions);
     }
@@ -128,13 +179,13 @@ public class DbToXmlService {
     }
 
     private void unparseReactions(Monster source, MonsterXml res) {
-        if (source.getReactions()==null){
+        if (source.getReactions() == null) {
             return;
         }
         ReactionXml[] reactions = new ReactionXml[source.getReactions().size()];
         for (int i = 0; i < source.getReactions().size(); i++) {
             ReactionXml a = unparseReaction(source.getReactions().get(i));
-            reactions[i]=a;
+            reactions[i] = a;
         }
         res.setReaction(reactions);
     }
@@ -151,7 +202,7 @@ public class DbToXmlService {
         ActionXml[] actions = new ActionXml[source.getActions().size()];
         for (int i = 0; i < source.getActions().size(); i++) {
             ActionXml a = unparseAction(source.getActions().get(i));
-            actions[i]=a;
+            actions[i] = a;
         }
         res.setAction(actions);
     }
@@ -166,9 +217,9 @@ public class DbToXmlService {
 
     private void unparseSaves(Monster source, MonsterXml res) {
         StringJoiner sb = new StringJoiner(" ");
-        String[] saveList = new String[]{"str","dex","con","int","wis","cha"};
-        for(String saveName:saveList){
-            int saveNum=0;
+        String[] saveList = new String[]{"str", "dex", "con", "int", "wis", "cha"};
+        for (String saveName : saveList) {
+            int saveNum = 0;
             switch (saveName) {
                 case "str" -> saveNum = source.getStrengthSave();
                 case "dex" -> saveNum = source.getDexteritySave();
@@ -177,13 +228,13 @@ public class DbToXmlService {
                 case "wis" -> saveNum = source.getWisdomSave();
                 case "cha" -> saveNum = source.getCharismaSave();
             }
-            if (saveNum!=0){
+            if (saveNum != 0) {
                 sb.add(saveName);
                 String op = "+";
-                if (saveNum<0){
-                    op="-";
+                if (saveNum < 0) {
+                    op = "-";
                 }
-                sb.add(op+saveNum);
+                sb.add(op + saveNum);
 
             }
         }
@@ -193,9 +244,9 @@ public class DbToXmlService {
     private void unparseSkills(Monster source, MonsterXml res) {
         StringJoiner sb = new StringJoiner(" ");
         //Check if we find each skill in the list
-        String[] skillList = new String[]{"athletics", "acrobatics","arcana","animal handling", "deception","history","insight","intimidation","investigation","medicine","nature","perception","performance","persuasion","religion","sleight of hand","stealth","survival"};
-        for(String skillName:skillList){
-            int skillNum=0;
+        String[] skillList = new String[]{"athletics", "acrobatics", "arcana", "animal handling", "deception", "history", "insight", "intimidation", "investigation", "medicine", "nature", "perception", "performance", "persuasion", "religion", "sleight of hand", "stealth", "survival"};
+        for (String skillName : skillList) {
+            int skillNum = 0;
             switch (skillName) {
                 case "athletics" -> skillNum = source.getAthletics();
                 case "acrobatics" -> skillNum = source.getAcrobatics();
@@ -216,13 +267,13 @@ public class DbToXmlService {
                 case "stealth" -> skillNum = source.getStealth();
                 case "survival" -> skillNum = source.getSurvival();
             }
-            if (skillNum!=0){
+            if (skillNum != 0) {
                 sb.add(skillName);
                 String op = "+";
-                if (skillNum<0){
-                    op="-";
+                if (skillNum < 0) {
+                    op = "-";
                 }
-                sb.add(op+skillNum);
+                sb.add(op + skillNum);
 
             }
         }
