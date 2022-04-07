@@ -114,33 +114,22 @@ public class DbToXmlService {
         return t;
     }
 
-    private void parseLegendaryActions(MonsterXml source, Monster res) {
-        List<LegendaryAction> legendaryActions= new ArrayList<>();
-        if (source.getLegendary() == null){
-            res.setHasLegendaryActions(false);
+    private void unparseLegendaryActions(Monster source, MonsterXml res) {
+        if (source.isHasLegendaryActions()){
             return;
-        }else{
-            res.setHasLegendaryActions(true);
         }
-        for (LegendaryXml legendaryXml : source.getLegendary()){
-            LegendaryAction l = parseLegendary(legendaryXml);
+        List<LegendaryXml> legendaryActions= new ArrayList<>();
+        for (LegendaryAction legendary : source.getLegendaryActions()){
+            LegendaryXml l = unparseLegendary(legendary);
             legendaryActions.add(l);
         }
-        for(LegendaryAction l: legendaryActions){
-            l.setMonster(res);
-        }
-        res.setLegendaryActions(legendaryActions);
+        res.setLegendary((LegendaryXml[]) legendaryActions.toArray());
     }
 
-    private LegendaryAction parseLegendary(LegendaryXml legendaryXml) {
-        LegendaryAction l = new LegendaryAction();
-        l.setName(legendaryXml.getName());
-        StringBuilder desc = new StringBuilder();
-        for (String s:
-                legendaryXml.getText()) {
-            desc.append(s);
-        }
-        l.setDescription(desc.toString());
+    private LegendaryXml unparseLegendary(LegendaryAction legendaryAction) {
+        LegendaryXml l = new LegendaryXml();
+        l.setName(legendaryAction.getName());
+        l.setText(legendaryAction.getDescription().split("\n"));
         return l;
     }
 
