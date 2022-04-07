@@ -78,6 +78,7 @@ class xmlServiceTest {
         m.setHp("13 (3d8)");
         m.setSpeed("walk 20 ft., fly 50 ft.");
         m.setSize("M");
+        m.setSenses("");
         m.setStrength(10);
         m.setDexterity(14);
         m.setConstitution(10);

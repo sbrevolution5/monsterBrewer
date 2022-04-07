@@ -29,9 +29,53 @@ public class XmlToDbService {
         parseTraits(source, res);
         parseReactions(source, res);
         parseDamageTypes(source, res);
-
+        parseConditions(source,res);
         return res;
 
+    }
+
+    private void parseConditions(MonsterXml source, Monster res) {
+        String sourceConditionImmune = source.getConditionImmune();
+        if (Objects.equals(sourceConditionImmune, "")){
+            return;
+        }
+        var conditionTypes = new String[]{
+                "Blinded",
+                "Charmed",
+                "Deafened",
+                "Frightened",
+                "Grappled",
+                "Incapacitated",
+                "Invisible",
+                "Paralyzed",
+                "Petrified",
+                "Poisoned",
+                "Prone",
+                "Restrained",
+                "Stunned",
+                "Unconscious",
+                "Exhaustion"
+        };
+        for (String condition :
+                conditionTypes) {
+            switch (condition) {
+                case "Blinded" -> res.setBlinded(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Charmed" -> res.setCharmed(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Deafened" -> res.setDeafened(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Frightened" -> res.setFrightened(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Grappled" -> res.setGrappled(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Incapacitated" -> res.setIncapacitated(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Invisible" -> res.setInvisible(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Paralyzed" -> res.setParalyzed(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Petrified" -> res.setPetrified(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Poisoned" -> res.setPoisoned(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Prone" -> res.setProne(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Restrained" -> res.setRestrained(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Stunned" -> res.setStunned(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Unconscious" -> res.setUnconscious(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Exhaustion" -> res.setExhaustion(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+            }
+        }
     }
 
     private void parseDamageTypes(MonsterXml source, Monster res) {
