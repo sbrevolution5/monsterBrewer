@@ -144,61 +144,38 @@ public class DbToXmlService {
         return l;
     }
 
-    private void parseReactions(MonsterXml source, Monster res) {
+    private void unparseReactions(Monster source, MonsterXml res) {
 
-        List<Reaction> reactions = new ArrayList<>();
-        if (source.getReaction() == null){
-            return;
+        ReactionXml[] reactions = new ReactionXml[source.getReactions().size()];
+        for (int i = 0; i < source.getReactions().size(); i++) {
+            ReactionXml a = unparseReaction(source.getReactions().get(i));
+            reactions[i]=a;
         }
-        for (ReactionXml reactionXml :
-                source.getReaction()) {
-            Reaction r = parseReaction(reactionXml);
-            reactions.add(r);
-        }
-        for (Reaction r:
-                reactions) {
-            r.setMonster(res);
-        }
-        res.setReactions(reactions);
+        res.setReaction(reactions);
     }
 
-    private Reaction parseReaction(ReactionXml reactionXml) {
-        Reaction r = new Reaction();
-        r.setName(reactionXml.getName());
-        StringBuilder desc = new StringBuilder();
-        for (String s :
-                reactionXml.getText()) {
-            desc.append(s);
-        }
-        r.setDescription(desc.toString());
-        r.setAttack(reactionXml.getAttack());
+    private ReactionXml unparseReaction(Reaction reaction) {
+        ReactionXml r = new ReactionXml();
+        r.setName(reaction.getName());
+        r.setText(reaction.getDescription().split("\n"));
+        r.setAttack(reaction.getAttack());
         return r;
     }
 
-    private void parseActions(MonsterXml source, Monster res) {
-        List<Action> actions = new ArrayList<>();
-        for (ActionXml actionXml :
-                source.getAction()) {
-            Action a = parseAction(actionXml);
-            actions.add(a);
+    private void unparseActions(Monster source, MonsterXml res) {
+        ActionXml[] actions = new ActionXml[source.getActions().size()];
+        for (int i = 0; i < source.getActions().size(); i++) {
+            ActionXml a = unparseAction(source.getActions().get(i));
+            actions[i]=a;
         }
-        for (Action a:
-                actions) {
-            a.setMonster(res);
-        }
-        res.setActions(actions);
+        res.setAction(actions);
     }
 
-    private Action parseAction(ActionXml actionXml) {
-        Action r = new Action();
-        r.setName(actionXml.getName());
-        StringBuilder desc = new StringBuilder();
-        for (String s :
-                actionXml.getText()) {
-            desc.append(s);
-        }
-        r.setDescription(desc.toString());
-        r.setAttack(actionXml.getAttack());
+    private ActionXml unparseAction(Action action) {
+        ActionXml r = new ActionXml();
+        r.setName(action.getName());
+        r.setText(action.getDescription().split("\n"));
+        r.setAttack(action.getAttack());
         return r;
     }
 
