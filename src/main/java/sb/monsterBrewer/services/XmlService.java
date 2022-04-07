@@ -1,18 +1,11 @@
 package sb.monsterBrewer.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 import sb.monsterBrewer.dtos.CompendiumXml;
+import sb.monsterBrewer.models.Compendium;
 import sb.monsterBrewer.models.Monster;
 
 
-import javax.sql.rowset.spi.XmlReader;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import javax.xml.bind.*;
 import javax.xml.stream.XMLInputFactory;
@@ -28,6 +21,13 @@ public class XmlService {
         } catch (Exception e){
             throw new IllegalStateException(e);
         }
+    }
+    public String marshal(Monster monster) throws JAXBException, IOException, XMLStreamException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(Monster.class);
+        Marshaller marshaller = jaxbContext.createMarshaller();
+        StringWriter sw = new StringWriter();
+        marshaller.marshal(monster,sw );
+        return sw.toString();
     }
     public JAXBElement<CompendiumXml> unmarshal(String filename) throws JAXBException, XMLStreamException, FileNotFoundException {
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();

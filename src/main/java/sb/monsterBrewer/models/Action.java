@@ -1,11 +1,13 @@
 package sb.monsterBrewer.models;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 public class Action {
     @Id
     @Column(name = "id", nullable = false)
+    @XmlTransient
     private Long id;
 
     private String name;
@@ -13,6 +15,7 @@ public class Action {
 
     @ManyToOne
     @JoinColumn(name = "monster_id")
+    @XmlTransient
     private Monster monster;
 
     @Column(name = "attack")

@@ -2,6 +2,7 @@ package sb.monsterBrewer.models;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import java.util.List;
 @XmlRootElement(name="monster")
 public class Monster {
     @Id @GeneratedValue
+    @XmlTransient
     private Long id;
     private String type;
     private String alignment;
@@ -18,6 +20,7 @@ public class Monster {
     private String speed;
     private String senses;
     private String languages;
+    @XmlTransient
     private boolean hasLegendaryActions;
 
 
@@ -37,6 +40,7 @@ public class Monster {
 
     @ManyToOne
     @JoinColumn(name = "compendium_id")
+    @XmlTransient
     private Compendium compendium;
 
     public List<Trait> getTraits() {
