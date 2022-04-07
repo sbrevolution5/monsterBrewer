@@ -128,7 +128,9 @@ public class DbToXmlService {
     }
 
     private void unparseReactions(Monster source, MonsterXml res) {
-
+        if (source.getReactions()==null){
+            return;
+        }
         ReactionXml[] reactions = new ReactionXml[source.getReactions().size()];
         for (int i = 0; i < source.getReactions().size(); i++) {
             ReactionXml a = unparseReaction(source.getReactions().get(i));

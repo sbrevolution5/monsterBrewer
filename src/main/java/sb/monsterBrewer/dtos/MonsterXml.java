@@ -2,8 +2,11 @@ package sb.monsterBrewer.dtos;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import java.util.Arrays;
 
 @XmlRootElement
+@XmlType(propOrder={"name","size","type","alignment","ac","hp","speed","str","dex","con","intel","wis","cha","save","skill","passive","languages","cr","resist","immune","vulnerable","conditionImmune","senses","trait","action","reaction","legendary","description","environment","slots","spells"})
 public class MonsterXml {
     private String con;
 
@@ -381,6 +384,6 @@ public class MonsterXml {
     @Override
     public String toString()
     {
-        return "ClassPojo [con = "+con+", senses = "+senses+", hp = "+hp+", save = "+save+", description = "+description+", type = "+type+", speed = "+speed+", conditionImmune = "+conditionImmune+", vulnerable = "+vulnerable+", dex = "+dex+", legendary = "+legendary+", skill = "+skill+", trait = "+trait+", action = "+action+", spells = "+spells+", cha = "+cha+", wis = "+wis+", ac = "+ac+", immune = "+immune+", reaction = "+reaction+", languages = "+languages+", resist = "+resist+", passive = "+passive+", intel = "+intel+", cr = "+cr+", str = "+str+", slots = "+slots+", environment = "+environment+", size = "+size+", name = "+name+", alignment = "+alignment+"]";
+        return "ClassPojo [con = "+con+", senses = "+senses+", hp = "+hp+", save = "+save+", description = "+description+", type = "+type+", speed = "+speed+", conditionImmune = "+conditionImmune+", vulnerable = "+vulnerable+", dex = "+dex+", legendary = "+ Arrays.toString(legendary) +", skill = "+skill+", trait = "+ Arrays.toString(trait) +", action = "+ Arrays.toString(action) +", spells = "+spells+", cha = "+cha+", wis = "+wis+", ac = "+ac+", immune = "+immune+", reaction = "+ Arrays.toString(reaction) +", languages = "+languages+", resist = "+resist+", passive = "+passive+", intel = "+intel+", cr = "+cr+", str = "+str+", slots = "+slots+", environment = "+environment+", size = "+size+", name = "+name+", alignment = "+alignment+"]";
     }
 }

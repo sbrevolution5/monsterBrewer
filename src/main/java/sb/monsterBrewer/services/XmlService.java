@@ -2,6 +2,7 @@ package sb.monsterBrewer.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import sb.monsterBrewer.dtos.CompendiumXml;
+import sb.monsterBrewer.dtos.MonsterXml;
 import sb.monsterBrewer.models.Compendium;
 import sb.monsterBrewer.models.Monster;
 
@@ -22,9 +23,10 @@ public class XmlService {
             throw new IllegalStateException(e);
         }
     }
-    public String marshal(Monster monster) throws JAXBException, IOException, XMLStreamException {
-        JAXBContext jaxbContext = JAXBContext.newInstance(Monster.class);
+    public String marshal(MonsterXml monster) throws JAXBException, IOException, XMLStreamException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(MonsterXml.class);
         Marshaller marshaller = jaxbContext.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         StringWriter sw = new StringWriter();
         marshaller.marshal(monster,sw );
         return sw.toString();
