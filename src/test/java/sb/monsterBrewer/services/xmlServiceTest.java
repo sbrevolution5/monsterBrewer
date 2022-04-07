@@ -130,8 +130,8 @@ class xmlServiceTest {
         var res = service.marshal(mx);
         //assert
         String aarakocra = """
-                <compendium>
-                    <monster>
+                <?xmlversion="1.0"encoding="UTF-8"standalone="yes"?>
+                    <monsterXml>
                         <name>Aarakocra</name>
                         <size>M</size>
                         <type>humanoid (aarakocra)</type>
@@ -184,9 +184,11 @@ class xmlServiceTest {
                         ------
                         Source: Monster Manual p. 12, Princes of the Apocalypse, Storm King's Thunder, Tomb of Annihilation, Explorer's Guide to Wildemount, Icewind Dale: Rime of the Frostmaiden</description>
                         <environment>mountain</environment>
-                    </monster>
-                </compendium>""";
-        assertEquals(res, aarakocra);
+                    </monsterXml>""";
+        assertEquals(removeWhiteSpaces(aarakocra),removeWhiteSpaces(res));
 
+    }
+    private String removeWhiteSpaces(String input) {
+        return input.replaceAll("\\s+", "");
     }
 }

@@ -244,7 +244,8 @@ public class DbToXmlService {
     private void unparseSkills(Monster source, MonsterXml res) {
         StringJoiner sb = new StringJoiner(" ");
         //Check if we find each skill in the list
-        String[] skillList = new String[]{"athletics", "acrobatics", "arcana", "animal handling", "deception", "history", "insight", "intimidation", "investigation", "medicine", "nature", "perception", "performance", "persuasion", "religion", "sleight of hand", "stealth", "survival"};
+        //TODO:capitalize
+        String[] skillList = new String[]{"athletics", "acrobatics", "arcana", "animal handling", "deception", "history", "insight", "intimidation", "investigation", "medicine", "nature", "Perception", "performance", "persuasion", "religion", "sleight of hand", "stealth", "survival"};
         for (String skillName : skillList) {
             int skillNum = 0;
             switch (skillName) {
@@ -259,7 +260,7 @@ public class DbToXmlService {
                 case "investigation" -> skillNum = source.getInvestigation();
                 case "medicine" -> skillNum = source.getMedicine();
                 case "nature" -> skillNum = source.getNature();
-                case "perception" -> skillNum = source.getPerception();
+                case "Perception" -> skillNum = source.getPerception();
                 case "performance" -> skillNum = source.getPerformance();
                 case "persuasion" -> skillNum = source.getPersuasion();
                 case "religion" -> skillNum = source.getReligion();
