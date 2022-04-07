@@ -202,31 +202,30 @@ public class DbToXmlService {
         return r;
     }
 
-    private void parseSaves(MonsterXml source, Monster res) {
-        String saveList = source.getSave();
-        if (Objects.equals(saveList, "")){
-            return;
-        }
-        //Check if we find each skill in the list
-        String[] splitSaves = saveList.split(",");
-        for (String splitSave : splitSaves) {
-            var save = splitSave.trim();
-            boolean hasNegativeMod = save.contains("-");
-            var saveParts = save.split("[+-]");
-            var saveName = saveParts[0];
-            int skillNum = Integer.parseInt(saveParts[1]);
-            if (hasNegativeMod) {
-                skillNum *= -1;
+    private void unparseSaves(Monster source, MonsterXml res) {
+        StringJoiner sb = new StringJoiner(" ");
+        String[] saveList = new String[]{"str","dex","con","int","wis","cha"};
+        for(String saveName:saveList){
+            int saveNum=0;
+            switch (saveName) {
+                case "str" -> saveNum = source.getStrengthSave();
+                case "dex" -> saveNum = source.getDexteritySave();
+                case "con" -> saveNum = source.getConstitutionSave();
+                case "int" -> saveNum = source.getIntelligenceSave();
+                case "wis" -> saveNum = source.getWisdomSave();
+                case "cha" -> saveNum = source.getCharismaSave();
             }
-            switch (saveName.trim().toLowerCase(Locale.ROOT)) {
-                case "str" -> res.setStrengthSave(skillNum);
-                case "dex" -> res.setDexteritySave(skillNum);
-                case "con" -> res.setConstitutionSave(skillNum);
-                case "int" -> res.setIntelligenceSave(skillNum);
-                case "wis" -> res.setWisdomSave(skillNum);
-                case "cha" -> res.setCharismaSave(skillNum);
+            if (saveNum!=0){
+                sb.add(saveName);
+                String op = "+";
+                if (saveNum<0){
+                    op="-";
+                }
+                sb.add(op+saveNum);
+
             }
         }
+        res.setSave(sb.toString());
     }
 
     private void unparseSkills(Monster source, MonsterXml res) {
