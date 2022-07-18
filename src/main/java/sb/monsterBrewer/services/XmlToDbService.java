@@ -29,14 +29,14 @@ public class XmlToDbService {
         parseTraits(source, res);
         parseReactions(source, res);
         parseDamageTypes(source, res);
-        parseConditions(source,res);
+        parseConditions(source, res);
         return res;
 
     }
 
     private void parseConditions(MonsterXml source, Monster res) {
         String sourceConditionImmune = source.getConditionImmune();
-        if (Objects.equals(sourceConditionImmune, "")){
+        if (Objects.equals(sourceConditionImmune, "")||sourceConditionImmune == null) {
             return;
         }
         var conditionTypes = new String[]{
@@ -62,18 +62,26 @@ public class XmlToDbService {
                 case "Blinded" -> res.setBlinded(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
                 case "Charmed" -> res.setCharmed(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
                 case "Deafened" -> res.setDeafened(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
-                case "Frightened" -> res.setFrightened(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Frightened" ->
+                        res.setFrightened(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
                 case "Grappled" -> res.setGrappled(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
-                case "Incapacitated" -> res.setIncapacitated(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
-                case "Invisible" -> res.setInvisible(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
-                case "Paralyzed" -> res.setParalyzed(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
-                case "Petrified" -> res.setPetrified(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Incapacitated" ->
+                        res.setIncapacitated(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Invisible" ->
+                        res.setInvisible(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Paralyzed" ->
+                        res.setParalyzed(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Petrified" ->
+                        res.setPetrified(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
                 case "Poisoned" -> res.setPoisoned(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
                 case "Prone" -> res.setProne(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
-                case "Restrained" -> res.setRestrained(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Restrained" ->
+                        res.setRestrained(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
                 case "Stunned" -> res.setStunned(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
-                case "Unconscious" -> res.setUnconscious(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
-                case "Exhaustion" -> res.setExhaustion(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Unconscious" ->
+                        res.setUnconscious(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
+                case "Exhaustion" ->
+                        res.setExhaustion(sourceConditionImmune.contains(condition.toLowerCase(Locale.ROOT)));
             }
         }
     }
@@ -101,12 +109,22 @@ public class XmlToDbService {
         //TODO: If we find all the phys types with nonmagical, then we shouldn't look for regular phys types
         for (String damageType : damageTypes) {
             DamageSeverity resType = DamageSeverity.DEFAULT;
-            if (vulnerable.contains(damageType.toLowerCase(Locale.ROOT))) {
-                resType = DamageSeverity.VULNERABLE;
-            } else if (resist.contains(damageType.toLowerCase(Locale.ROOT))) {
-                resType = DamageSeverity.RESISTANT;
-            } else if (immune.contains(damageType.toLowerCase(Locale.ROOT))) {
-                resType = DamageSeverity.IMMUNE;
+            if (vulnerable != null) {
+                if (vulnerable.contains(damageType.toLowerCase(Locale.ROOT))) {
+                    resType = DamageSeverity.VULNERABLE;
+                }
+            }
+            if (resist != null) {
+
+                if (resist.contains(damageType.toLowerCase(Locale.ROOT))) {
+                    resType = DamageSeverity.RESISTANT;
+                }
+            }
+            if (immune != null) {
+
+                if (immune.contains(damageType.toLowerCase(Locale.ROOT))) {
+                    resType = DamageSeverity.IMMUNE;
+                }
             }
             switch (damageType) {
                 case "fire" -> res.setFire(resType);
@@ -132,15 +150,15 @@ public class XmlToDbService {
     }
 
     private void parseTraits(MonsterXml source, Monster res) {
-        List<Trait> traitList= new ArrayList<>();
-        if (source.getTrait()==null){
+        List<Trait> traitList = new ArrayList<>();
+        if (source.getTrait() == null) {
             return;
         }
-        for (TraitXml trait : source.getTrait()){
+        for (TraitXml trait : source.getTrait()) {
             Trait t = parseTrait(trait);
             traitList.add(t);
         }
-        for(Trait t: traitList){
+        for (Trait t : traitList) {
             t.setMonster(res);
         }
         res.setTraits(traitList);
@@ -150,8 +168,8 @@ public class XmlToDbService {
         Trait t = new Trait();
         t.setName(trait.getName());
         StringBuilder desc = new StringBuilder();
-        for (String s:
-             trait.getText()) {
+        for (String s :
+                trait.getText()) {
             desc.append(s);
         }
         t.setDescription(desc.toString());
@@ -159,18 +177,18 @@ public class XmlToDbService {
     }
 
     private void parseLegendaryActions(MonsterXml source, Monster res) {
-        List<LegendaryAction> legendaryActions= new ArrayList<>();
-        if (source.getLegendary() == null){
+        List<LegendaryAction> legendaryActions = new ArrayList<>();
+        if (source.getLegendary() == null) {
             res.setHasLegendaryActions(false);
             return;
-        }else{
+        } else {
             res.setHasLegendaryActions(true);
         }
-        for (LegendaryXml legendaryXml : source.getLegendary()){
+        for (LegendaryXml legendaryXml : source.getLegendary()) {
             LegendaryAction l = parseLegendary(legendaryXml);
             legendaryActions.add(l);
         }
-        for(LegendaryAction l: legendaryActions){
+        for (LegendaryAction l : legendaryActions) {
             l.setMonster(res);
         }
         res.setLegendaryActions(legendaryActions);
@@ -180,7 +198,7 @@ public class XmlToDbService {
         LegendaryAction l = new LegendaryAction();
         l.setName(legendaryXml.getName());
         StringBuilder desc = new StringBuilder();
-        for (String s:
+        for (String s :
                 legendaryXml.getText()) {
             desc.append(s);
         }
@@ -191,7 +209,7 @@ public class XmlToDbService {
     private void parseReactions(MonsterXml source, Monster res) {
 
         List<Reaction> reactions = new ArrayList<>();
-        if (source.getReaction() == null){
+        if (source.getReaction() == null) {
             return;
         }
         for (ReactionXml reactionXml :
@@ -199,8 +217,8 @@ public class XmlToDbService {
             Reaction r = parseReaction(reactionXml);
             reactions.add(r);
         }
-        for (Reaction r:
-             reactions) {
+        for (Reaction r :
+                reactions) {
             r.setMonster(res);
         }
         res.setReactions(reactions);
@@ -226,7 +244,7 @@ public class XmlToDbService {
             Action a = parseAction(actionXml);
             actions.add(a);
         }
-        for (Action a:
+        for (Action a :
                 actions) {
             a.setMonster(res);
         }
@@ -248,7 +266,7 @@ public class XmlToDbService {
 
     private void parseSaves(MonsterXml source, Monster res) {
         String saveList = source.getSave();
-        if (Objects.equals(saveList, "")||Objects.equals(saveList, null)){
+        if (Objects.equals(saveList, "") || Objects.equals(saveList, null)) {
             return;
         }
         //Check if we find each skill in the list
