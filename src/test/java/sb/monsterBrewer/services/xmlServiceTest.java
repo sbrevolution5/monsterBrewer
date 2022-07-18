@@ -31,7 +31,7 @@ class xmlServiceTest {
 
         XmlService service = new XmlService();
         service.readCompendiumXml();
-        JAXBElement<CompendiumXml> res = service.unmarshal("F:\\CoderFoundry\\Java\\monsterBrewer\\monsterBrewer\\src\\main\\java\\sb\\monsterBrewer\\exampleXml\\MonsterManualCompendium.xml");
+        JAXBElement<CompendiumXml> res = service.unmarshal("src/main/java/sb/monsterBrewer/exampleXml/MonsterManualCompendium.xml");
         XmlToDbService dbService = new XmlToDbService();
         var monster = dbService.parseMonster(res.getValue().getMonster()[0]);
         assertEquals(11, monster.getCharisma());
