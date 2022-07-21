@@ -1,0 +1,13 @@
+<div class="container">
+    <h2>Input Monster:</h2>
+    <form  #form="ngForm" (ngSubmit)="onSubmit(form)">
+      <div class="mb-3">
+        <label for="name">Name</label>
+        <input id="name" name="name" class="form-control" placeholder="Name" [(ngModel)]="userSettings.name" (blur)="onBlur(nameField)" required #nameField="ngModel" [class.field-error]="form.submitted && nameField.invalid"/>
+        <div [hidden]="nameField.valid || !form.submitted" class=" mt-1 alert alert-danger">Enter a name</div>
+      </div>
+      <div [hidden]="!postError" class="alert alert-danger mx-1">{{postErrorMessage}}</div>
+      <button class="btn btn-primary">Send</button>
+    </form>
+  </div>
+  {{userSettings | json}}
