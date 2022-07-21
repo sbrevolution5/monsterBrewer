@@ -17,7 +17,6 @@ export class MonsterFormComponent implements OnInit {
   postError = false;
   postErrorMessage = '';
   constructor(private dataService: DataService) { }
-  constructor() { }
 
   ngOnInit(): void {
   }
