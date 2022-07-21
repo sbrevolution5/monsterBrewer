@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data/data.service';
+import { MonsterData } from '../data/monster-data';
 
 @Component({
   selector: 'app-monster-form',
@@ -8,10 +10,12 @@ import { Component, OnInit } from '@angular/core';
 export class MonsterFormComponent implements OnInit {
   originalUserSettings : MonsterData = {
     name: 'Seth',
-    emailOffers: true,
-    interfaceStyle: 'dark',
-    subscriptionType: 'Annual',
-    notes: 'notes go here!'
+    ac: '10',
+    alignment: 'Neutral',
+    hitDice: '2d8',
+    hp: '20',
+    cr: '1',
+    race: 'humanoid',
   }
   userSettings : MonsterData={...this.originalUserSettings};
   postError = false;
