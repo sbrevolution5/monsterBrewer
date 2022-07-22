@@ -56,7 +56,7 @@ export class MonsterFormComponent implements OnInit {
     wisdom: 10,
     wisdomSave:0
   }
-  userSettings : MonsterData={...this.originalMonsterData};
+  monsterData : MonsterData={...this.originalMonsterData};
   postError = false;
   postErrorMessage = '';
   constructor(private dataService: DataService) { }
