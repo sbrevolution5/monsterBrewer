@@ -1,3 +1,8 @@
+import { MonsterAction } from "./monster-action";
+import { DamageTypes } from "./damage-types";
+import { Skills } from "./skills";
+import { Trait } from "./trait";
+
 export interface MonsterData {
     name:string,
     race: string,
@@ -20,9 +25,9 @@ export interface MonsterData {
     charismaSave: number,
     skills: Skills,
     damageTypes: DamageTypes,
-    actions: Action[],
-    legendaryActions: Action[],
+    actions: MonsterAction[],
+    legendaryActions: MonsterAction[],
     traits: Trait[],
-    reactions: Action[]
+    reactions: MonsterAction[]
 
 }
