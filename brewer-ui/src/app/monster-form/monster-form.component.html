@@ -6,7 +6,7 @@
         <input id="name" name="name" class="form-control" placeholder="Name" [(ngModel)]="monsterData.name" required #nameField="ngModel" [class.field-error]="form.submitted && nameField.invalid"/>
         <div [hidden]="nameField.valid || !form.submitted" class=" mt-1 alert alert-danger">Enter a name</div>
       </div>
-      <div class="mx-3">
+      <div class="my-3">
         <div class="row">
             <div class="col">
                 <label for="ac">Armor Class</label>
@@ -19,6 +19,46 @@
             <div class="col">
                 <label for="hitDice">Hit Dice</label>
                 <input type="text" name="hitDice" placeholder="4 d8" class="form-control" [(ngModel)]="monsterData.hitDice">
+            </div>
+        </div>
+      </div>
+      <div class="my-3">
+        <div class="row">
+            <div class="col">
+                <label for="str">Strength</label>
+                <input type="number" name="str" placeholder="10" class="form-control" [(ngModel)]="monsterData.strength">
+                <label for="strSave">Save</label>
+                <input type="number" name="strSave" placeholder="+0" class="form-control" [(ngModel)]="monsterData.strengthSave">
+            </div>
+            <div class="col">
+                <label for="dex">Dexterity</label>
+                <input type="number" name="dex" placeholder="10" class="form-control" [(ngModel)]="monsterData.dexterity">
+                <label for="dexSave">Save</label>
+                <input type="number" name="dexSave" placeholder="+0" class="form-control" [(ngModel)]="monsterData.dexteritySave">
+            </div>
+            <div class="col">
+                <label for="con">Constitution</label>
+                <input type="number" name="con" placeholder="10" class="form-control" [(ngModel)]="monsterData.constitution">
+                <label for="conSave">Save</label>
+                <input type="number" name="conSave" placeholder="+0" class="form-control" [(ngModel)]="monsterData.constitutionSave">
+            </div>
+            <div class="col">
+                <label for="int">Intelligence</label>
+                <input type="number" name="int" class="form-control" [(ngModel)]="monsterData.intelligence">
+                <label for="intSave">Save</label>
+                <input type="number" name="intSave" class="form-control" [(ngModel)]="monsterData.intelligenceSave">
+            </div>
+            <div class="col">
+                <label for="wis">Wisdom</label>
+                <input type="number" name="wis" placeholder="10" class="form-control" [(ngModel)]="monsterData.wisdom">
+                <label for="wisSave">Save</label>
+                <input type="number" name="wisSave" placeholder="+0" class="form-control" [(ngModel)]="monsterData.wisdomSave">
+            </div>
+            <div class="col">
+                <label for="cha">Charisma</label>
+                <input type="number" name="cha" placeholder="10" class="form-control" [(ngModel)]="monsterData.charisma">
+                <label for="chaSave">Save</label>
+                <input type="number" name="chaSave" placeholder="+0" class="form-control" [(ngModel)]="monsterData.charisma">
             </div>
         </div>
       </div>
