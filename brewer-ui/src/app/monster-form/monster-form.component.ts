@@ -30,7 +30,7 @@ export class MonsterFormComponent implements OnInit {
     survival: 0
   }
   originalMonsterData : MonsterData = {
-    name: 'Seth',
+    name: '',
     ac: '10',
     alignment: 'Neutral',
     hitDice: '2d8',
