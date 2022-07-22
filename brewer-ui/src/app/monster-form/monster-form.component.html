@@ -9,8 +9,24 @@
       <div class="my-3">
         <div class="row">
             <div class="col">
+                <label for="race">Race/Creature Type</label>
+                <input type="text" name="race" placeholder="Humanoid" class="form-control" [(ngModel)]="monsterData.race">
+            </div>
+            <div class="col">
+                <label for="alignment">Alignment</label>
+                <input type="text" name="alignment" placeholder="Neutral" class="form-control" [(ngModel)]="monsterData.alignment">
+            </div>
+            <div class="col">
+                <label for="challengeRating">Challenge Rating</label>
+                <input type="text" name="challengeRating" placeholder="1/2" class="form-control" [(ngModel)]="monsterData.cr">
+            </div>
+        </div>
+      </div>
+      <div class="my-3">
+        <div class="row">
+            <div class="col">
                 <label for="ac">Armor Class</label>
-                <input type="text" name="ac" class="form-control" [(ngModel)]="monsterData.ac">
+                <input type="text" name="ac" placeholder="10" class="form-control" [(ngModel)]="monsterData.ac">
             </div>
             <div class="col">
                 <label for="hp">Hit Points</label>
@@ -61,6 +77,18 @@
                 <input type="number" name="chaSave" placeholder="+0" class="form-control" [(ngModel)]="monsterData.charisma">
             </div>
         </div>
+      </div>
+      <div>
+        <h5>Skills Section</h5>
+      </div>
+      <div>
+        <h5>Actions Section</h5>
+      </div>
+      <div>
+        <h5>Reactions Section</h5>
+      </div>
+      <div>
+        <h5>Legandary Actions Section</h5>
       </div>
       <div [hidden]="!postError" class="alert alert-danger mx-1">{{postErrorMessage}}</div>
       <button class="btn btn-primary">Send</button>
