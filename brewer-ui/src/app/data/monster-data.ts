@@ -23,6 +23,6 @@ export interface MonsterData {
     actions: Action[],
     legendaryActions: Action[],
     traits: Trait[],
-    reaction: Action[]
+    reactions: Action[]
 
 }

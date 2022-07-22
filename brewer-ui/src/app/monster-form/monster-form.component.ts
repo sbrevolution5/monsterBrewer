@@ -8,7 +8,7 @@ import { MonsterData } from '../data/monster-data';
   styleUrls: ['./monster-form.component.css']
 })
 export class MonsterFormComponent implements OnInit {
-  originalUserSettings : MonsterData = {
+  originalMonsterData : MonsterData = {
     name: 'Seth',
     ac: '10',
     alignment: 'Neutral',
@@ -16,8 +16,26 @@ export class MonsterFormComponent implements OnInit {
     hp: '20',
     cr: '1',
     race: 'humanoid',
+    actions: [],
+    charisma:10,
+    charismaSave: 0,
+    constitution: 10,
+    constitutionSave:0,
+    damageTypes: {},
+    dexterity: 10,
+    dexteritySave: 0,
+    intelligence: 10,
+    intelligenceSave:0,
+    legendaryActions:[],
+    reactions:[],
+    skills: {},
+    strength:10,
+    strengthSave: 0,
+    traits: [],
+    wisdom: 10,
+    wisdomSave:0
   }
-  userSettings : MonsterData={...this.originalUserSettings};
+  userSettings : MonsterData={...this.originalMonsterData};
   postError = false;
   postErrorMessage = '';
   constructor(private dataService: DataService) { }
