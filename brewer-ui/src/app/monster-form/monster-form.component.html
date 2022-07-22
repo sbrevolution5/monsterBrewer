@@ -8,9 +8,18 @@
       </div>
       <div class="mx-3">
         <div class="row">
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
+            <div class="col">
+                <label for="ac">Armor Class</label>
+                <input type="text" name="ac" class="form-control" [(ngModel)]="monsterData.ac">
+            </div>
+            <div class="col">
+                <label for="hp">Hit Points</label>
+                <input type="text" name="hp" placeholder="20" class="form-control" [(ngModel)]="monsterData.hp">
+            </div>
+            <div class="col">
+                <label for="hitDice">Hit Dice</label>
+                <input type="text" name="hitDice" placeholder="4 d8" class="form-control" [(ngModel)]="monsterData.hitDice">
+            </div>
         </div>
       </div>
       <div [hidden]="!postError" class="alert alert-danger mx-1">{{postErrorMessage}}</div>
