@@ -8,6 +8,7 @@ import { MonsterFormComponent } from './monster-form/monster-form.component';
 import { SkillsComponent } from './skills/skills.component';
 import { DamageSelectorComponent } from './damage-selector/damage-selector.component';
 import { ActionCardComponent } from './action-card/action-card.component';
+import {ButtonsModule} from 'ngx-bootstrap/buttons'
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ActionCardComponent } from './action-card/action-card.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ButtonsModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

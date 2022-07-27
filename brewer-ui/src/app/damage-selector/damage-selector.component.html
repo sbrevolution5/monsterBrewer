@@ -1,1 +1,106 @@
 <p>damage-selector works!</p>
+<form #form="ngForm" >
+
+  <p>Fire</p>
+  <div class="btn-group" >
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.fire" name="fire" btnRadio="normal" tabindex="0"
+      role="button">Normal</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.fire" name="fire" btnRadio="vulnerable" tabindex="0" role="button">Vulnerable</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.fire" name="fire" btnRadio="resistant" tabindex="0"
+      role="button">Resistant</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.fire" name="fire" btnRadio="immmune" tabindex="0"
+      role="button">Immune</label>
+  </div>
+  <p>cold</p>
+  <div class="btn-group">
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.cold" name="cold" btnRadio="normal" tabindex="0"
+      role="button">Normal</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.cold" name="cold" btnRadio="vulnerable" tabindex="0"
+      role="button">Vulnerable</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.cold" name="cold" btnRadio="resistant" tabindex="0"
+      role="button">Resistant</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.cold" name="cold" btnRadio="immmune" tabindex="0"
+      role="button">Immune</label>
+  </div>
+  <p>acid</p>
+  <div class="btn-group">
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.acid" name="acid" btnRadio="normal" tabindex="0"
+      role="button">Normal</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.acid" name="acid" btnRadio="vulnerable" tabindex="0" role="button">Vulnerable</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.acid" name="acid" btnRadio="resistant" tabindex="0" role="button">Resistant</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.acid" name="acid" btnRadio="immmune" tabindex="0" role="button">Immune</label>
+  </div>
+  <p>poison</p>
+  <div class="btn-group">
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.poison" name="poison" btnRadio="normal" tabindex="0" role="button">Normal</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.poison" name="poison" btnRadio="vulnerable" tabindex="0" role="button">Vulnerable</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.poison" name="poison" btnRadio="resistant" tabindex="0" role="button">Resistant</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.poison" name="poison" btnRadio="immmune" tabindex="0" role="button">Immune</label>
+  </div>
+  <p>bludgeoning</p>
+  <div class="btn-group">
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.bludgeoning" name="bludgeoning" btnRadio="normal" tabindex="0" role="button">Normal</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.bludgeoning" name="bludgeoning" btnRadio="vulnerable" tabindex="0" role="button">Vulnerable</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.bludgeoning" name="bludgeoning" btnRadio="resistant" tabindex="0" role="button">Resistant</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.bludgeoning" name="bludgeoning" btnRadio="immmune" tabindex="0" role="button">Immune</label>
+  </div>
+  <p>piercing</p>
+  <div class="btn-group">
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.piercing" name="piercing" btnRadio="normal" tabindex="0" role="button">Normal</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.piercing" name="piercing" btnRadio="vulnerable" tabindex="0" role="button">Vulnerable</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.piercing" name="piercing" btnRadio="resistant" tabindex="0" role="button">Resistant</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.piercing" name="piercing" btnRadio="immmune" tabindex="0" role="button">Immune</label>
+  </div>
+  <p>slashing</p>
+  <div class="btn-group">
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.slashing" name="slashing" btnRadio="normal" tabindex="0" role="button">Normal</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.slashing" name="slashing" btnRadio="vulnerable" tabindex="0" role="button">Vulnerable</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.slashing" name="slashing" btnRadio="resistant" tabindex="0" role="button">Resistant</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.slashing" name="slashing" btnRadio="immmune" tabindex="0" role="button">Immune</label>
+  </div>
+  <p>nonMagicPhys</p>
+  <div class="btn-group">
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.nonMagicPhys" name="nonMagicPhys" btnRadio="normal" tabindex="0" role="button">Normal</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.nonMagicPhys" name="nonMagicPhys" btnRadio="vulnerable" tabindex="0" role="button">Vulnerable</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.nonMagicPhys" name="nonMagicPhys" btnRadio="resistant" tabindex="0" role="button">Resistant</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.nonMagicPhys" name="nonMagicPhys" btnRadio="immmune" tabindex="0" role="button">Immune</label>
+  </div>
+  <p>force</p>
+  <div class="btn-group">
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.force" name="force" btnRadio="normal" tabindex="0" role="button">Normal</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.force" name="force" btnRadio="vulnerable" tabindex="0" role="button">Vulnerable</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.force" name="force" btnRadio="resistant" tabindex="0" role="button">Resistant</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.force" name="force" btnRadio="immmune" tabindex="0" role="button">Immune</label>
+  </div>
+  <p>radiant</p>
+  <div class="btn-group">
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.radiant" name="radiant" btnRadio="normal" tabindex="0" role="button">Normal</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.radiant" name="radiant" btnRadio="vulnerable" tabindex="0" role="button">Vulnerable</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.radiant" name="radiant" btnRadio="resistant" tabindex="0" role="button">Resistant</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.radiant" name="radiant" btnRadio="immmune" tabindex="0" role="button">Immune</label>
+  </div>
+  <p>necrotic</p>
+  <div class="btn-group">
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.necrotic" name="necrotic" btnRadio="normal" tabindex="0" role="button">Normal</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.necrotic" name="necrotic" btnRadio="vulnerable" tabindex="0" role="button">Vulnerable</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.necrotic" name="necrotic" btnRadio="resistant" tabindex="0" role="button">Resistant</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.necrotic" name="necrotic" btnRadio="immmune" tabindex="0" role="button">Immune</label>
+  </div>
+  <p>thunder</p>
+  <div class="btn-group">
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.thunder" name="thunder" btnRadio="normal" tabindex="0" role="button">Normal</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.thunder" name="thunder" btnRadio="vulnerable" tabindex="0" role="button">Vulnerable</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.thunder" name="thunder" btnRadio="resistant" tabindex="0" role="button">Resistant</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.thunder" name="thunder" btnRadio="immmune" tabindex="0" role="button">Immune</label>
+  </div>
+  <p>lightning</p>
+  <div class="btn-group">
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.lightning" name="lightning" btnRadio="normal" tabindex="0" role="button">Normal</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.lightning" name="lightning" btnRadio="vulnerable" tabindex="0" role="button">Vulnerable</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.lightning" name="lightning" btnRadio="resistant" tabindex="0" role="button">Resistant</label>
+    <label class="btn btn-primary" [(ngModel)]="damageTypes.lightning" name="lightning" btnRadio="immmune" tabindex="0" role="button">Immune</label>
+  </div>
+  <p>{{damageTypes|json}}
+</p>HI
+
+</form>
