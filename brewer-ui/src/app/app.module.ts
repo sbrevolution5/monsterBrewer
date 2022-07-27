@@ -6,12 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MonsterFormComponent } from './monster-form/monster-form.component';
 import { SkillsComponent } from './skills/skills.component';
+import { DamageSelectorComponent } from './damage-selector/damage-selector.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MonsterFormComponent,
-    SkillsComponent
+    SkillsComponent,
+    DamageSelectorComponent
   ],
   imports: [
     BrowserModule,
