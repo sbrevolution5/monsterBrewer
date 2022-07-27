@@ -5,11 +5,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MonsterFormComponent } from './monster-form/monster-form.component';
+import { SkillsComponent } from './skills/skills.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MonsterFormComponent
+    MonsterFormComponent,
+    SkillsComponent
   ],
   imports: [
     BrowserModule,
