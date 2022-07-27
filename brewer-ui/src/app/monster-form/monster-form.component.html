@@ -83,13 +83,20 @@
         <app-skills></app-skills>
       </div>
       <div>
+        <h5>Damage Types Section</h5>
+        <app-damage-selector></app-damage-selector>
+      </div>
+      <div>
         <h5>Actions Section</h5>
+        <app-action-card></app-action-card>
       </div>
       <div>
         <h5>Reactions Section</h5>
+        <app-action-card></app-action-card>
       </div>
       <div>
         <h5>Legandary Actions Section</h5>
+        <app-action-card></app-action-card>
       </div>
       <div [hidden]="!postError" class="alert alert-danger mx-1">{{postErrorMessage}}</div>
       <button class="btn btn-primary">Send</button>
