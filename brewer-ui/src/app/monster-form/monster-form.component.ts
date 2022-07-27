@@ -2,6 +2,7 @@ import { Skills } from './../data/skills';
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data/data.service';
 import { MonsterData } from '../data/monster-data';
+import { DamageTypes } from '../data/damage-types';
 
 @Component({
   selector: 'app-monster-form',
@@ -9,6 +10,7 @@ import { MonsterData } from '../data/monster-data';
   styleUrls: ['./monster-form.component.css']
 })
 export class MonsterFormComponent implements OnInit {
+
   originalSkills: Skills={
     acrobatics: 0,
     animalHandling: 0,
@@ -29,6 +31,7 @@ export class MonsterFormComponent implements OnInit {
     stealth: 0,
     survival: 0
   }
+  originalTypes: DamageTypes={fire:'normal',acid:'normal',bludgeoning:'normal',cold:'normal',force:'normal',lightning:'normal',necrotic:'normal',nonMagicPhys:'normal',piercing:'normal',poison:'normal',psychic:'normal',radiant:'normal',slashing:'normal',thunder:'normal'};
   originalMonsterData : MonsterData = {
     name: '',
     ac: '10',
@@ -42,7 +45,7 @@ export class MonsterFormComponent implements OnInit {
     charismaSave: 0,
     constitution: 10,
     constitutionSave:0,
-    damageTypes: {},
+    damageTypes: this.originalTypes,
     dexterity: 10,
     dexteritySave: 0,
     intelligence: 10,

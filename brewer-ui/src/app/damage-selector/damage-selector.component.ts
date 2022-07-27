@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DamageTypes } from '../data/damage-types';
 
 @Component({
   selector: 'app-damage-selector',
@@ -6,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./damage-selector.component.css']
 })
 export class DamageSelectorComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit(): void {

@@ -1,2 +1,16 @@
 export interface DamageTypes {
+  fire: string,
+  cold: string,
+  bludgeoning: string,
+  piercing: string,
+  slashing: string,
+  nonMagicPhys: string,
+  lightning: string,
+  thunder: string,
+  psychic: string,
+  force: string,
+  acid: string,
+  poison: string,
+  radiant: string,
+  necrotic: string,
 }
